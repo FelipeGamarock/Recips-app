@@ -13,6 +13,7 @@ function App() {
         data={ rockGlass }
       >
         Glass
+        Iniciando Projeto :rocket: 
       </object>
     </div>
   );
