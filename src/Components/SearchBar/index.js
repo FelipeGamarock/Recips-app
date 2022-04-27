@@ -2,7 +2,13 @@ import React from 'react';
 
 function SearchBar() {
   return (
-    <div>SearchBar</div>
+    <div>
+      <input
+        type="text"
+        data-testid="search-input"
+      />
+
+    </div>
   );
 }
 

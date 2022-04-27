@@ -1,13 +1,13 @@
 import React from 'react';
 import Footer from '../../Components/Footer';
+import HeaderForExplore from '../../Components/HeaderForExplore';
 
 function ExploreFoods() {
   return (
     <div>
-      <h1>Explore Foods</h1>
+      <HeaderForExplore title="Explore Foods" />
       <Footer />
     </div>
-
   );
 }
 
