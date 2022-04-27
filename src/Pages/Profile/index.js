@@ -12,10 +12,11 @@ function Profile() {
     localStorage.clear();
     history.push('/');
   }
-
+  // apagar depois linha 19
   return (
     <div>
       <h1>Profile</h1>
+      <p>teste</p>
       <Footer />
       <HeaderForExplore title="Profile" />
       <p data-testid="profile-email">{ email }</p>
