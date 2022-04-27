@@ -1,8 +1,11 @@
 import React from 'react';
+import HeaderForExplore from '../../Components/HeaderForExplore';
 
 function ExploreDrinks() {
   return (
-    <h1>Explore Drinks</h1>
+    <div>
+      <HeaderForExplore title="Explore Drinks" />
+    </div>
   );
 }
 

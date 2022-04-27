@@ -1,5 +1,5 @@
 import React from 'react';
-// import Header from '.../Componentes/Header';
+import HeaderForExplore from '../../Components/HeaderForExplore';
 import { useHistory } from 'react-router-dom';
 
 function Profile() {
@@ -13,6 +13,7 @@ function Profile() {
   }
 
   return (
+    <HeaderForExplore title="Profile" />
     <div>
       <p data-testid="profile-email">{ email }</p>
       <button
