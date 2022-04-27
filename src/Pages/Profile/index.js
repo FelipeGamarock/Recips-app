@@ -1,6 +1,6 @@
 import React from 'react';
-import HeaderForExplore from '../../Components/HeaderForExplore';
 import { useHistory } from 'react-router-dom';
+import HeaderForExplore from '../../Components/HeaderForExplore';
 
 function Profile() {
   const email = localStorage.getItem('user');
@@ -13,8 +13,8 @@ function Profile() {
   }
 
   return (
-    <HeaderForExplore title="Profile" />
     <div>
+      <HeaderForExplore title="Profile" />
       <p data-testid="profile-email">{ email }</p>
       <button
         type="button"
