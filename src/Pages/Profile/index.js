@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../../Components/Footer';
 import { useHistory } from 'react-router-dom';
 import HeaderForExplore from '../../Components/HeaderForExplore';
 
@@ -14,6 +15,8 @@ function Profile() {
 
   return (
     <div>
+      <h1>Profile</h1>
+      <Footer />
       <HeaderForExplore title="Profile" />
       <p data-testid="profile-email">{ email }</p>
       <button

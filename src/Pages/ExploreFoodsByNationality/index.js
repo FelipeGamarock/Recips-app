@@ -1,9 +1,13 @@
 import React from 'react';
 import Header from '../../Components/Header';
+import Footer from '../../Components/Footer';
 
 function ExploreFoodsByNationality() {
   return (
-    <Header title="Explore Nationalities" />
+    <div>
+      <Header title="Explore Nationalities" />
+      <Footer />
+    </div>
   );
 }
 
