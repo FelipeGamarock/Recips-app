@@ -1,7 +1,7 @@
 .footer {
+  bottom: 0;
   display: flex;
   justify-content: space-between;
   position: fixed;
-  bottom: 0;
   max-width: 360px;
 }
