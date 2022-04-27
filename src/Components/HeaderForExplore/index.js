@@ -4,7 +4,7 @@ import Proptypes from 'prop-types';
 
 import profileIcon from '../../images/profileIcon.svg';
 
-function Header({ title }) {
+function HeaderForExplore({ title }) {
   const { push } = useHistory();
   return (
     <header>
@@ -24,8 +24,8 @@ function Header({ title }) {
   );
 }
 
-Header.propTypes = {
+HeaderForExplore.propTypes = {
   title: Proptypes.string.isRequired,
 };
 
-export default Header;
+export default HeaderForExplore;
