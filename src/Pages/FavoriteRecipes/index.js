@@ -1,8 +1,9 @@
 import React from 'react';
+import HeaderForExplore from '../../Components/HeaderForExplore';
 
 function FavoriteRecipes() {
   return (
-    <h1>Favorite Recipes</h1>
+    <HeaderForExplore title="Favorite Recipes" />
   );
 }
 

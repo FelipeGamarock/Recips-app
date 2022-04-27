@@ -1,8 +1,9 @@
 import React from 'react';
+import HeaderForExplore from '../../Components/HeaderForExplore';
 
 function Profile() {
   return (
-    <h1>Profile</h1>
+    <HeaderForExplore title="Profile" />
   );
 }
 
