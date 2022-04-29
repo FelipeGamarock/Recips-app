@@ -10,7 +10,12 @@ export default function Card({ src, cardTitle, index, type, onClick }) {
       className="card-class"
     >
       <h4 data-testid={ `${index}-card-name` }>{cardTitle}</h4>
-      <img data-testid={ `${index}-card-img` } src={ src } alt={ cardTitle } />
+      <img
+        data-testid={ `${index}-card-img` }
+        src={ src }
+        alt={ cardTitle }
+        // maxWidth="100%"
+      />
     </button>
   );
 }
