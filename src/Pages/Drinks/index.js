@@ -13,16 +13,20 @@ function Drinks() {
   const MAX_LENGTH = 12;
   const history = useHistory();
 
-  const initialFetch = async () => {
-    const response = await fetchDrinks();
-    console.log(response);
-    setSearchFoodOrDrink(response);
-  };
+  // const initialFetch = async () => {
+  //   const response = await fetchDrinks();
+  //   console.log(response);
+  //   setSearchFoodOrDrink(response);
+  // };
 
   useEffect(() => {
+    async function initialFetch() {
+      const response = await fetchDrinks();
+      console.log(response);
+      setSearchFoodOrDrink(response);
+    }
     initialFetch();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setSearchFoodOrDrink]);
 
   return (
     <div className="cardsClass">
