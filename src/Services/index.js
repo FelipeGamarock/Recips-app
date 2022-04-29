@@ -30,3 +30,8 @@ export const getDrinks = async (endpoint) => {
 
   return data;
 };
+
+export const switchFoodOrDrink = {
+  foods: getFoods,
+  drinks: getDrinks,
+};
