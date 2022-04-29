@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import SearchContext from './SearchContext';
 
 function SearchProvider({ children }) {
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
+  const [searchFoodOrDrink, setSearchFoodOrDrink] = useState('');
   const contextValue = {
-    email,
-    setEmail,
+    searchFoodOrDrink,
+    setSearchFoodOrDrink,
   };
   return (
     <SearchContext.Provider value={ contextValue }>

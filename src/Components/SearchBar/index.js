@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import SearchContext from '../../Context/SearchContext';
 import { switchFoodOrDrink } from '../../Services';
 
 function SearchBar() {
   const history = useHistory();
   const radioSelected = useRef();
   const input = useRef();
+  const { setSearchFoodOrDrink } = useContext(SearchContext);
   // const [oneLetter, setOneLetter] = useState(false);
 
   const validateOneLeter = () => {
@@ -16,6 +18,7 @@ function SearchBar() {
   };
 
   const handleFetch = async () => {
+    const one = 1;
     const urlPath = history.location.pathname.split('/')[1];
     console.log(urlPath);
     const typePath = radioSelected.current;
@@ -27,7 +30,19 @@ function SearchBar() {
     }
 
     switchFoodOrDrink[urlPath](urlToFetch).then((response) => {
-      console.log(response);
+      // console.log(response);
+      const fetchResponse = Object.values(response).flat();
+      // console.log(fetchResponse);
+      if (fetchResponse.length === one) {
+        if (fetchResponse[0] !== null) {
+          history.push(`${urlPath}/${fetchResponse[0][urlPath === 'foods'
+            ? 'idMeal' : 'idDrink']}`);
+        } else {
+          global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        }
+      } else {
+        setSearchFoodOrDrink(response);
+      }
     });
   };
 
