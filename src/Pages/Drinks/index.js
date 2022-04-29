@@ -5,8 +5,7 @@ import Footer from '../../Components/Footer';
 import { fetchDrinks, fetchCategoryDrinks } from '../../Services';
 import SearchContext from '../../Context/SearchContext';
 import Card from '../../Components/Card';
-import CategoryDrinksBtn from '../../Components/CategoryMealsBtn';
-import './index.css';
+import CategoryDrinksBtn from '../../Components/CategoryDrinksBtn';
 
 function Drinks() {
   const {
@@ -16,6 +15,7 @@ function Drinks() {
     setDrinksCategory,
   } = useContext(SearchContext);
   const responseArray = Object.values(searchFoodOrDrink).flat();
+  console.log(responseArray);
   const responseDrinksCategoriy = Object.values(drinksCategory).flat();
 
   const MAX_LENGTH = 12;
@@ -28,15 +28,6 @@ function Drinks() {
   //   setSearchFoodOrDrink(response);
   // };
 
-  const fetchCategories = useCallback(async () => {
-    const response = await fetchCategoryDrinks();
-    setDrinksCategory(response);
-  }, [setDrinksCategory]);
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
-
   useEffect(() => {
     async function initialFetch() {
       const response = await fetchDrinks();
@@ -46,10 +37,19 @@ function Drinks() {
     initialFetch();
   }, [setSearchFoodOrDrink]);
 
+  const fetchCategories = useCallback(async () => {
+    const response = await fetchCategoryDrinks();
+    setDrinksCategory(response);
+  }, [setDrinksCategory]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
   return (
     <div className="cardsClass">
       <Header title="Drinks" />
-      <div className="categoryBtn">
+      <div>
         {
           responseDrinksCategoriy.slice(0, MAX_CATEGORIES).map((category, index) => (
             <CategoryDrinksBtn
@@ -66,7 +66,7 @@ function Drinks() {
             index={ index }
             type="recipe"
             src={ aux.strDrinkThumb }
-            onClick={ () => history.push(`/foods/${aux.idDrink}`) }
+            onClick={ () => history.push(`/drinks/${aux.idDrink}`) }
             cardTitle={ aux.strDrink }
           />
         ))}

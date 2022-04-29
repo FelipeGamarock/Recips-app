@@ -13,7 +13,6 @@ function Foods() {
     setSearchFoodOrDrink,
     mealsCategory,
     setMealsCategory,
-
   } = useContext(SearchContext);
   const responseArray = Object.values(searchFoodOrDrink).flat();
   const responseMealsCategoriy = Object.values(mealsCategory).flat();
@@ -49,7 +48,7 @@ function Foods() {
   return (
     <div className="cardsClass">
       <Header title="Foods" />
-      <div className="categoryBtn">
+      <div>
         {
           responseMealsCategoriy.slice(0, MAX_CATEGORIES).map((category, index) => (
             <CategoryMealsBtn
