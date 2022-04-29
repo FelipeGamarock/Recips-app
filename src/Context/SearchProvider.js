@@ -4,7 +4,7 @@ import SearchContext from './SearchContext';
 
 function SearchProvider({ children }) {
   // const [email, setEmail] = useState('');
-  const [searchFoodOrDrink, setSearchFoodOrDrink] = useState('');
+  const [searchFoodOrDrink, setSearchFoodOrDrink] = useState([]);
   const contextValue = {
     searchFoodOrDrink,
     setSearchFoodOrDrink,
