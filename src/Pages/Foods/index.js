@@ -36,6 +36,11 @@ function Foods() {
     }
     initialFetch();
   }, [setSearchFoodOrDrink]);
+  async function handleAllBtn() {
+    const response = await fetchMeals();
+    setSearchFoodOrDrink(response);
+  }
+
   const fetchCategories = useCallback(async () => {
     const response = await fetchCategoryMeals();
     setMealsCategory(response);
@@ -57,6 +62,15 @@ function Foods() {
             />
           ))
         }
+      </div>
+      <div>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => handleAllBtn() }
+        >
+          All Categories
+        </button>
       </div>
       <div>
         {responseArray.slice(0, MAX_LENGTH).map((aux, index) => (

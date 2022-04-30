@@ -46,6 +46,11 @@ function Drinks() {
     fetchCategories();
   }, [fetchCategories]);
 
+  async function handleAllBtn() {
+    const response = await fetchDrinks();
+    setSearchFoodOrDrink(response);
+  }
+
   return (
     <div className="cardsClass">
       <Header title="Drinks" />
@@ -58,6 +63,15 @@ function Drinks() {
             />
           ))
         }
+      </div>
+      <div>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => handleAllBtn() }
+        >
+          All Categories
+        </button>
       </div>
       <div>
         {responseArray.slice(0, MAX_LENGTH).map((aux, index) => (
