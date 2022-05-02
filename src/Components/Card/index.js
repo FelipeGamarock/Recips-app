@@ -15,7 +15,6 @@ export default function Card({ src, cardTitle, index, type, onClick }) {
         data-testid={ `${index}-card-img` }
         src={ src }
         alt={ cardTitle }
-        // maxWidth="100%"
       />
     </button>
   );

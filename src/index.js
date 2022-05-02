@@ -6,12 +6,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import LoginProvider from './Context/LoginProvider';
 import SearchProvider from './Context/SearchProvider';
+import DetailsProvider from './Context/DetailsProvider';
 
 ReactDOM.render(
   <BrowserRouter>
     <LoginProvider>
       <SearchProvider>
-        <App />
+        <DetailsProvider>
+          <App />
+        </DetailsProvider>
       </SearchProvider>
     </LoginProvider>
   </BrowserRouter>,

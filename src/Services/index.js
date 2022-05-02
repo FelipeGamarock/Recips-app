@@ -6,6 +6,8 @@ const BASE_CATEGORY_MEALS = 'https://www.themealdb.com/api/json/v1/1/list.php?c=
 const BASE_CATEGORY_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 const FETCH_MEALS_BY_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const FETCH_DRINKS_BY_CATEGORY = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+const FETCH_MEALS_DETAILS_BY_ID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const FETCH_DRINKS_DETAILS_BY_ID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
 export const fetchMeals = async () => {
   const response = await fetch(`${BASE_MEALS}`);
@@ -63,6 +65,20 @@ export const fetchMealsByCategory = async (endpoint) => {
 
 export const fetchDrinksByCategory = async (endpoint) => {
   const response = await fetch(`${FETCH_DRINKS_BY_CATEGORY}${endpoint}`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const fetchMealsById = async (enpoint) => {
+  const response = await fetch(`${FETCH_MEALS_DETAILS_BY_ID}${enpoint}`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const fetchDrinksById = async (enpoint) => {
+  const response = await fetch(`${FETCH_DRINKS_DETAILS_BY_ID}${enpoint}`);
   const data = await response.json();
 
   return data;
