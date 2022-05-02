@@ -3,7 +3,9 @@ import HeaderForExplore from '../../Components/HeaderForExplore';
 
 function DoneRecipes() {
   return (
-    <HeaderForExplore title="Done Recipes" />
+    <div>
+      <HeaderForExplore title="Done Recipes" />
+    </div>
   );
 }
 
