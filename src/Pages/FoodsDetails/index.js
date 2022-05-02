@@ -17,7 +17,7 @@ function FoodsDetails() {
       setDetails(response.meals[0]);
     }
     initialFetchId();
-  }, [id]);
+  }, [setDetails]);
   const { strMealThumb } = details;
   return (
     <div>
