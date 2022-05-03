@@ -13,6 +13,8 @@ function Foods() {
     setSearchFoodOrDrink,
     mealsCategory,
     setMealsCategory,
+    firstRender,
+    setFirstRender,
   } = useContext(SearchContext);
   const responseArray = Object.values(searchFoodOrDrink).flat();
   const responseMealsCategoriy = Object.values(mealsCategory).flat();
@@ -30,12 +32,17 @@ function Foods() {
 
   useEffect(() => {
     async function initialFetch() {
-      const response = await fetchMeals();
-      console.log(response);
-      setSearchFoodOrDrink(response);
+      if (firstRender) {
+        const response = await fetchMeals();
+        console.log(response);
+        setSearchFoodOrDrink(response);
+      }
+      setFirstRender(false);
     }
     initialFetch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setSearchFoodOrDrink]);
+
   async function handleAllBtn() {
     const response = await fetchMeals();
     setSearchFoodOrDrink(response);

@@ -13,6 +13,8 @@ const FETCH_RANDOM_FOOD = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const FOOD_INGREDIENTS_LIST = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const DRINK_INGREDIENTS_LIST = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const INGREDIENT_IMAGE = 'https://www.themealdb.com/images/ingredients/';
+const NATIONALITIES_LIST = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const FETCH_MEALS_BY_AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 
 export const fetchMeals = async () => {
   const response = await fetch(`${BASE_MEALS}`);
@@ -119,6 +121,20 @@ export const fetchIngredientsDrinkList = async () => {
 
 export const fetchIngredientsImage = async (ingredient) => {
   const response = await fetch(`${INGREDIENT_IMAGE}${ingredient}-Small.png`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const fetchNationalitiesList = async () => {
+  const response = await fetch(`${NATIONALITIES_LIST}`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const fetchMealsByArea = async (nationality) => {
+  const response = await fetch(`${FETCH_MEALS_BY_AREA}${nationality}`);
   const data = await response.json();
 
   return data;

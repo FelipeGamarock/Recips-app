@@ -9,6 +9,7 @@ function SearchProvider({ children }) {
   const [toggleCategory, setToggleCategory] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstRender, setFirstRender] = useState(true);
 
   function handleLogin({ name, value }) {
     if (name === 'email') {
@@ -31,6 +32,8 @@ function SearchProvider({ children }) {
     email,
     password,
     handleLogin,
+    firstRender,
+    setFirstRender,
   };
   return (
     <SearchContext.Provider value={ contextValue }>
