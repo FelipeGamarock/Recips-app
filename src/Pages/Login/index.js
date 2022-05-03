@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import LoginContext from '../../Context/LoginContext';
+import SearchContext from '../../Context/SearchContext';
 
 function Login() {
   const history = useHistory();
@@ -9,7 +9,7 @@ function Login() {
     email,
     password,
     handleLogin,
-  } = useContext(LoginContext);
+  } = useContext(SearchContext);
   const MIN_LENGTH = 7;
   const REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{3}$/;
   const validateLogin = () => {
