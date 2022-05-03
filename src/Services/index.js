@@ -10,6 +10,9 @@ const FETCH_MEALS_DETAILS_BY_ID = 'https://www.themealdb.com/api/json/v1/1/looku
 const FETCH_DRINKS_DETAILS_BY_ID = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 const FETCH_RANDOM_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const FETCH_RANDOM_FOOD = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const FOOD_INGREDIENTS_LIST = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const DRINK_INGREDIENTS_LIST = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+const INGREDIENT_IMAGE = 'https://www.themealdb.com/images/ingredients/';
 
 export const fetchMeals = async () => {
   const response = await fetch(`${BASE_MEALS}`);
@@ -95,6 +98,27 @@ export const fetchRandomDrink = async () => {
 
 export const fetchRandomFood = async () => {
   const response = await fetch(`${FETCH_RANDOM_FOOD}`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const fetchIngredientsFoodList = async () => {
+  const response = await fetch(`${FOOD_INGREDIENTS_LIST}`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const fetchIngredientsDrinkList = async () => {
+  const response = await fetch(`${DRINK_INGREDIENTS_LIST}`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const fetchIngredientsImage = async (ingredient) => {
+  const response = await fetch(`${INGREDIENT_IMAGE}${ingredient}-Small.png`);
   const data = await response.json();
 
   return data;
