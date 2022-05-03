@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import clipBoard from 'clipboard-copy';
 import { fetchMealsById } from '../../Services';
@@ -10,7 +10,6 @@ function FoodsDetails() {
   const { id } = useParams(); // pega o id da receita na página
   const history = useHistory();
   const [share, setShare] = useState('Share');
-  const [favorite, setFavorite] = useState(false);
   const {
     details,
     setDetails,
@@ -18,7 +17,19 @@ function FoodsDetails() {
     quantities,
     filterIngredients,
     recomended,
+    favoriteRecepies,
+    setFavoriteRecepies,
+    isFavorite,
+    setIsFavorite,
   } = useContext(DetailsContext);
+
+  const verifyLocalStorage = useCallback(() => {
+    const alredyFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (alredyFav !== null) {
+      setIsFavorite(alredyFav.some((e) => e.id === id));
+      setFavoriteRecepies(alredyFav);
+    }
+  }, [id, setIsFavorite, setFavoriteRecepies]);
 
   function btnStartRecepie() {
     history.push(`${id}/in-progress`);
@@ -36,7 +47,8 @@ function FoodsDetails() {
       filterIngredients(response.meals[0]);
     }
     initialFetchId();
-  }, [setDetails, id, filterIngredients]);
+    verifyLocalStorage();
+  }, [setDetails, id, filterIngredients, verifyLocalStorage]);
 
   const {
     strMealThumb,
@@ -44,20 +56,38 @@ function FoodsDetails() {
     strMeal,
     strInstructions,
     strYoutube,
-    // strArea,
+    strArea,
   } = details;
 
-  // function saveNewFavorite() {
-  //   const newFav = {
-  //     id,
-  //     type: 'food',
-  //     nationality: strArea,
-  //     category: strCategory,
-  //     alcoholicOrNot: '',
-  //     name: strMeal,
-  //     image: strMealThumb,
-  //   };
-  // }
+  function saveNewFavorite() {
+    const newFav = {
+      id,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+
+    if (isFavorite === false) {
+      // console.log(favoriteRecepies);
+      localStorage.setItem('favoriteRecipes',
+        JSON.stringify([...favoriteRecepies, newFav]));
+      setFavoriteRecepies([...favoriteRecepies, newFav]);
+      setIsFavorite(true);
+    } else {
+      // console.log('aqui');
+      // console.log(favoriteRecepies);
+      // console.log('remove');
+      // console.log(favoriteRecepies.filter((e) => e.id !== id));
+      localStorage.setItem('favoriteRecipes',
+        JSON.stringify([...favoriteRecepies.filter((e) => e.id !== id)]));
+      setFavoriteRecepies(favoriteRecepies.filter((e) => e.id !== id));
+      setIsFavorite(false);
+    }
+  }
+  // console.log(favoriteRecepies);
 
   const recomendedArray = Object.values(recomended).flat();
   const MAX_RECOMENDED = 6;
@@ -87,11 +117,11 @@ function FoodsDetails() {
           </button>
           <button
             type="button"
-            onClick={ () => setFavorite(!favorite) }
+            onClick={ () => saveNewFavorite() }
           >
             <img
               data-testid="favorite-btn"
-              src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
               alt="Refeita favorita?"
             />
           </button>
