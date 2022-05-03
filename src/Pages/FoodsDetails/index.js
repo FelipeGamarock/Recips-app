@@ -1,11 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import clipBoard from 'clipboard-copy';
 import { fetchMealsById } from '../../Services';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function FoodsDetails() {
   const { id } = useParams(); // pega o id da receita na página
+  const history = useHistory();
+  const [share, setShare] = useState('Share');
+  const [favorite, setFavorite] = useState(false);
   const {
     details,
     setDetails,
@@ -14,6 +19,15 @@ function FoodsDetails() {
     filterIngredients,
     recomended,
   } = useContext(DetailsContext);
+
+  function btnStartRecepie() {
+    history.push(`${id}/in-progress`);
+  }
+
+  function copyLink() {
+    clipBoard(`http://localhost:3000/foods/${id}`);
+    setShare('Link copied!');
+  }
 
   useEffect(() => {
     async function initialFetchId() {
@@ -24,9 +38,30 @@ function FoodsDetails() {
     initialFetchId();
   }, [setDetails, id, filterIngredients]);
 
-  const { strMealThumb, strCategory, strMeal, strInstructions, strYoutube } = details;
+  const {
+    strMealThumb,
+    strCategory,
+    strMeal,
+    strInstructions,
+    strYoutube,
+    // strArea,
+  } = details;
+
+  // function saveNewFavorite() {
+  //   const newFav = {
+  //     id,
+  //     type: 'food',
+  //     nationality: strArea,
+  //     category: strCategory,
+  //     alcoholicOrNot: '',
+  //     name: strMeal,
+  //     image: strMealThumb,
+  //   };
+  // }
+
   const recomendedArray = Object.values(recomended).flat();
   const MAX_RECOMENDED = 6;
+  console.log('Render');
 
   return (
     <div>
@@ -42,13 +77,21 @@ function FoodsDetails() {
           <h3 data-testid="recipe-category">{ strCategory }</h3>
         </div>
         <div>
-          <button data-testid="share-btn" type="button">
-            ShareBtn
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ copyLink }
+          >
+
+            {share}
           </button>
-          <button type="button">
+          <button
+            type="button"
+            onClick={ () => setFavorite(!favorite) }
+          >
             <img
               data-testid="favorite-btn"
-              src={ whiteHeartIcon }
+              src={ favorite ? blackHeartIcon : whiteHeartIcon }
               alt="Refeita favorita?"
             />
           </button>
@@ -105,6 +148,7 @@ function FoodsDetails() {
       <button
         data-testid="start-recipe-btn"
         type="button"
+        onClick={ btnStartRecepie }
         style={ { position: 'fixed', bottom: '0' } }
       >
         Start recipe

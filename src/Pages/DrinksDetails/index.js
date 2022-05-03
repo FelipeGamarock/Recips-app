@@ -1,11 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import clipBoard from 'clipboard-copy';
 import { fetchDrinksById } from '../../Services';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function DrinksDetails() {
   const { id } = useParams(); // pega o id da receita na página
+  const history = useHistory();
+  const [share, setShare] = useState('Share');
+  const [favorite, setFavorite] = useState(true);
   const {
     details,
     setDetails,
@@ -14,6 +19,15 @@ function DrinksDetails() {
     filterIngredients,
     recomended,
   } = useContext(DetailsContext);
+
+  function btnStartRecepie() {
+    history.push(`${id}/in-progress`);
+  }
+
+  function copyLink() {
+    clipBoard(`http://localhost:3000/drinks/${id}`);
+    setShare('Link copied!');
+  }
 
   useEffect(() => {
     async function initialFetchIdDrink() {
@@ -49,13 +63,20 @@ function DrinksDetails() {
           </h4>
         </div>
         <div>
-          <button data-testid="share-btn" type="button">
-            ShareBtn
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ copyLink }
+          >
+            { share }
           </button>
-          <button type="button">
+          <button
+            type="button"
+            onClick={ () => setFavorite(!favorite) }
+          >
             <img
               data-testid="favorite-btn"
-              src={ whiteHeartIcon }
+              src={ favorite ? blackHeartIcon : whiteHeartIcon }
               alt="Refeita favorita?"
             />
           </button>
@@ -97,6 +118,7 @@ function DrinksDetails() {
       <button
         data-testid="start-recipe-btn"
         type="button"
+        onClick={ btnStartRecepie }
         style={ { position: 'fixed', bottom: '0' } }
       >
         Start recipe
