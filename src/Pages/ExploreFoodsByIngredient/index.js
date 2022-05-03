@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer';
 import HeaderForExplore from '../../Components/HeaderForExplore';
-import { fetchIngredientsList } from '../../Services';
+import { fetchIngredientsFoodList } from '../../Services';
 import Card from '../../Components/Card';
 
 const MAX_LENGTH = 12;
 
 function ExploreFoodsByIngredient() {
-  const history = useHistory();
+  // const history = useHistory();
   const [ingredientsList, setIngredientsList] = useState('');
 
   useEffect(() => {
     async function RequestIngredientList() {
-      const response = await fetchIngredientsList();
+      const response = await fetchIngredientsFoodList();
       setIngredientsList(response.meals.slice(0, MAX_LENGTH));
     }
     RequestIngredientList();
@@ -33,9 +33,8 @@ function ExploreFoodsByIngredient() {
             cardTitle={ ingredient.strIngredient }
           />
         ))}
-
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }

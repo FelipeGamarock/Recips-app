@@ -19,7 +19,7 @@ function ExploreFoods() {
 
   return (
     <div>
-      <HeaderForExplore title="Explore foods" />
+      <HeaderForExplore title="Explore Foods" />
       <div>
         <button
           type="button"

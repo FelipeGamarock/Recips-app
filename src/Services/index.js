@@ -11,6 +11,7 @@ const FETCH_DRINKS_DETAILS_BY_ID = 'https://www.themealdb.com/api/json/v1/1/look
 const FETCH_RANDOM_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const FETCH_RANDOM_FOOD = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const FOOD_INGREDIENTS_LIST = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const DRINK_INGREDIENTS_LIST = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 const INGREDIENT_IMAGE = 'https://www.themealdb.com/images/ingredients/';
 
 export const fetchMeals = async () => {
@@ -102,8 +103,15 @@ export const fetchRandomFood = async () => {
   return data;
 };
 
-export const fetchIngredientsList = async () => {
+export const fetchIngredientsFoodList = async () => {
   const response = await fetch(`${FOOD_INGREDIENTS_LIST}`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const fetchIngredientsDrinkList = async () => {
+  const response = await fetch(`${DRINK_INGREDIENTS_LIST}`);
   const data = await response.json();
 
   return data;
