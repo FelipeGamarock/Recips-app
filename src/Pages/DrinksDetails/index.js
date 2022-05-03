@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import clipBoard from 'clipboard-copy';
 import { fetchDrinksById } from '../../Services';
@@ -10,7 +10,6 @@ function DrinksDetails() {
   const { id } = useParams(); // pega o id da receita na página
   const history = useHistory();
   const [share, setShare] = useState('Share');
-  const [favorite, setFavorite] = useState(true);
   const {
     details,
     setDetails,
@@ -18,7 +17,19 @@ function DrinksDetails() {
     quantities,
     filterIngredients,
     recomended,
+    favoriteRecepies,
+    setFavoriteRecepies,
+    isFavorite,
+    setIsFavorite,
   } = useContext(DetailsContext);
+
+  const verifyLocalStorage = useCallback(() => {
+    const alredyFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (alredyFav !== null) {
+      setIsFavorite(alredyFav.some((e) => e.id === id));
+      setFavoriteRecepies(alredyFav);
+    }
+  }, [id, setIsFavorite, setFavoriteRecepies]);
 
   function btnStartRecepie() {
     history.push(`${id}/in-progress`);
@@ -33,17 +44,47 @@ function DrinksDetails() {
     async function initialFetchIdDrink() {
       const response = await fetchDrinksById(id);
       setDetails(response.drinks[0]);
-      console.log(response.drinks[0]);
+      // console.log(response.drinks[0]);
       filterIngredients(response.drinks[0]);
     }
     initialFetchIdDrink();
-  }, [setDetails, id, filterIngredients]);
+    verifyLocalStorage();
+  }, [setDetails, id, filterIngredients, verifyLocalStorage]);
 
   const { strDrinkThumb, strCategory, strAlcoholic, strDrink, strInstructions } = details;
   const recomendedArray = Object.values(recomended).flat();
   const MAX_RECOMENDED = 6;
   // console.log(ingredients);
   // console.log(quantities);
+
+  function saveNewFavorite() {
+    const newFav = {
+      id,
+      type: 'drink',
+      nationality: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+
+    if (isFavorite === false) {
+      // console.log(favoriteRecepies);
+      localStorage.setItem('favoriteRecipes',
+        JSON.stringify([...favoriteRecepies, newFav]));
+      setFavoriteRecepies([...favoriteRecepies, newFav]);
+      setIsFavorite(true);
+    } else {
+      // console.log('aqui');
+      // console.log(favoriteRecepies);
+      // console.log('remove');
+      // console.log(favoriteRecepies.filter((e) => e.id !== id));
+      localStorage.setItem('favoriteRecipes',
+        JSON.stringify([...favoriteRecepies.filter((e) => e.id !== id)]));
+      setFavoriteRecepies(favoriteRecepies.filter((e) => e.id !== id));
+      setIsFavorite(false);
+    }
+  }
   return (
     <div>
       <h1>DrinksDetails</h1>
@@ -72,11 +113,11 @@ function DrinksDetails() {
           </button>
           <button
             type="button"
-            onClick={ () => setFavorite(!favorite) }
+            onClick={ () => saveNewFavorite() }
           >
             <img
               data-testid="favorite-btn"
-              src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
               alt="Refeita favorita?"
             />
           </button>
