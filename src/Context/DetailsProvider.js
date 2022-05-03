@@ -10,6 +10,8 @@ function DetailsProvider({ children }) {
   const [ingredients, setIngredients] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [recomended, setRecomended] = useState([]);
+  const [favoriteRecepies, setFavoriteRecepies] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
   const pageType = history.location.pathname.split('/')[1];
 
   const fetchRecomended = (async (type) => {
@@ -22,8 +24,6 @@ function DetailsProvider({ children }) {
       // console.log(recomendedMeals.meals);
       setRecomended(recomendedMeals.meals);
     }
-    // console.log('recomendaçoes');
-    // console.log(recomended);
   });
 
   const filterIngredients = useCallback((data) => {
@@ -44,6 +44,10 @@ function DetailsProvider({ children }) {
     quantities,
     filterIngredients,
     recomended,
+    favoriteRecepies,
+    setFavoriteRecepies,
+    isFavorite,
+    setIsFavorite,
   };
 
   return (
