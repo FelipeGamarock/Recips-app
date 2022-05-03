@@ -7,7 +7,7 @@ const BASE_CATEGORY_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/list.p
 const FETCH_MEALS_BY_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const FETCH_DRINKS_BY_CATEGORY = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 const FETCH_MEALS_DETAILS_BY_ID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-const FETCH_DRINKS_DETAILS_BY_ID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const FETCH_DRINKS_DETAILS_BY_ID = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 const FETCH_RANDOM_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const FETCH_RANDOM_FOOD = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const FOOD_INGREDIENTS_LIST = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
