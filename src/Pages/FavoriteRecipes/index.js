@@ -1,9 +1,13 @@
 import React from 'react';
+import DoneFavoriteFiltersBtns from '../../Components/DoneFavoriteFiltersBtns';
 import HeaderForExplore from '../../Components/HeaderForExplore';
 
 function FavoriteRecipes() {
   return (
-    <HeaderForExplore title="Favorite Recipes" />
+    <div>
+      <HeaderForExplore title="Favorite Recipes" />
+      <DoneFavoriteFiltersBtns />
+    </div>
   );
 }
 
