@@ -9,16 +9,25 @@ function FoodsDetails() {
   const {
     details,
     setDetails,
+    ingredients,
+    quantities,
+    filterIngredients,
+    recomended,
   } = useContext(DetailsContext);
 
   useEffect(() => {
     async function initialFetchId() {
       const response = await fetchMealsById(id);
       setDetails(response.meals[0]);
+      filterIngredients(response.meals[0]);
     }
     initialFetchId();
-  }, [setDetails, id]);
-  const { strMealThumb } = details;
+  }, [setDetails, id, filterIngredients]);
+
+  const { strMealThumb, strCategory, strMeal, strInstructions, strYoutube } = details;
+  const recomendedArray = Object.values(recomended).flat();
+  const MAX_RECOMENDED = 6;
+
   return (
     <div>
       <h1>FoodsDetails</h1>
@@ -29,8 +38,8 @@ function FoodsDetails() {
           alt="Foto da receita"
         />
         <div>
-          <h1 data-testid="recipe-title">Título</h1>
-          <h3 data-testid="recipe-category">Categoria</h3>
+          <h1 data-testid="recipe-title">{ strMeal }</h1>
+          <h3 data-testid="recipe-category">{ strCategory }</h3>
         </div>
         <div>
           <button data-testid="share-btn" type="button">
@@ -47,37 +56,50 @@ function FoodsDetails() {
         <section>
           <h3>Ingredients</h3>
           <ul>
-            {/* {arraydosingredientes.map((e, i) => ( */}
-
-            <li key={ 0 } data-testid={ `${0}-ingredient-name-and-measure` }>
-              {/* {e[1]} */}
-              {' '}
-              {/* {quantities[0][1]} */}
-            </li>
-            {/* ))} */}
+            {
+              (quantities.length > 1)
+                ? ingredients.map((element, i) => (
+                  <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
+                    {element[1]}
+                    {': '}
+                    {quantities[i][1] === 'Dash' ? 'To Taste' : quantities[i][1] }
+                  </li>
+                ))
+                : null
+            }
           </ul>
         </section>
         <section>
           <h3>Instructions</h3>
-          <p data-testid="instructions">Instruçoes</p>
+          <p data-testid="instructions">{ strInstructions }</p>
         </section>
         <section>
           <h4>Video</h4>
-          <iframe title="Video Da Receita" data-testid="video" />
+          <iframe
+            width="360px"
+            height="540px"
+            data-testid="video"
+            src={ strYoutube
+            && strYoutube.replace('watch?v=', 'embed/') }
+            title={ strMeal }
+            frameBorder="0"
+          />
         </section>
       </section>
-      <section>
+      <section className="recommended-carrocel">
         <h3>Recommended</h3>
         <div>
-          <div key={ 0 } data-testid={ `${0}-recomendation-card` }>
-            <img
-              src="https://img.itdg.com.br/tdg/images/blog/uploads/2019/04/origem-da-cerveja.jpg"
-              alt="bebida recomendada"
-              width="200px"
-            />
-            <span>oi</span>
-            <h4 data-testid={ `${0}-recomendation-title` }>req</h4>
-          </div>
+          {recomendedArray && recomendedArray.slice(0, MAX_RECOMENDED)
+            .map((e, i) => (
+              <div
+                key={ e.idDrink }
+                data-testid={ `${i}-recomendation-card` }
+              >
+                <img src={ e.strDrinkThumb } alt="bebida recomendada" width="180px" />
+                <h4 data-testid={ `${i}-recomendation-title` }>{e.strDrink}</h4>
+                <span>{e.strAlcoholic}</span>
+              </div>
+            ))}
         </div>
       </section>
       <button
