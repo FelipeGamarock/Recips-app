@@ -42,6 +42,25 @@ function FoodsInProgress() {
     // strArea,
   } = details;
 
+  // https://stackoverflow.com/questions/40143108/disable-button-if-all-checkboxes-are-unchecked
+
+  const checks = document.getElementsByName('checkme');
+  const fnshBtn = document.getElementById('finishButton');
+
+  function allTrue(cb) {
+    for (let i = 0; i < cb.length; i += 1) {
+      if (cb[i].checked === false) return false;
+    }
+    return true;
+  }
+
+  function disableButton() {
+    fnshBtn.disabled = true;
+    if (allTrue(checks)) fnshBtn.disabled = false;
+  }
+
+  //
+
   return (
     <div>
       <img
@@ -80,6 +99,8 @@ function FoodsInProgress() {
           <input
             id={ `ingredient${index}` }
             type="checkbox"
+            name="checkme"
+            onClick={ disableButton }
           />
         </label>
       ))}
@@ -88,13 +109,15 @@ function FoodsInProgress() {
       >
         {strInstructions}
       </p>
-      <button
+      <input
         data-testid="finish-recipe-btn"
-        type="button"
+        type="submit"
+        value="Finish Recipe"
+        name="finishButton"
+        disabled="disabled"
+        id="finishButton"
         onClick={ () => history.push('/done-recipes') }
-      >
-        Finish Recipe
-      </button>
+      />
     </div>
   );
 }
