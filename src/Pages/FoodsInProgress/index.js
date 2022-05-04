@@ -70,21 +70,33 @@ function FoodsInProgress() {
     };
 
     if (isFavorite === false) {
-      // console.log(favoriteRecepies);
       localStorage.setItem('favoriteRecipes',
         JSON.stringify([...favoriteRecepies, newFav]));
       setFavoriteRecepies([...favoriteRecepies, newFav]);
       setIsFavorite(true);
     } else {
-      // console.log('aqui');
-      // console.log(favoriteRecepies);
-      // console.log('remove');
-      // console.log(favoriteRecepies.filter((e) => e.id !== id));
       localStorage.setItem('favoriteRecipes',
         JSON.stringify([...favoriteRecepies.filter((e) => e.id !== id)]));
       setFavoriteRecepies(favoriteRecepies.filter((e) => e.id !== id));
       setIsFavorite(false);
     }
+  }
+
+  // https://stackoverflow.com/questions/40143108/disable-button-if-all-checkboxes-are-unchecked
+
+  const checks = document.getElementsByName('checkme');
+  const fnshBtn = document.getElementById('finishButton');
+
+  function allTrue(cb) {
+    for (let i = 0; i < cb.length; i += 1) {
+      if (cb[i].checked === false) return false;
+    }
+    return true;
+  }
+
+  function disableButton() {
+    fnshBtn.disabled = true;
+    if (allTrue(checks)) fnshBtn.disabled = false;
   }
 
   return (
@@ -131,6 +143,8 @@ function FoodsInProgress() {
           <input
             id={ `ingredient${index}` }
             type="checkbox"
+            name="checkme"
+            onClick={ disableButton }
           />
         </label>
       ))}
@@ -139,13 +153,15 @@ function FoodsInProgress() {
       >
         {strInstructions}
       </p>
-      <button
+      <input
         data-testid="finish-recipe-btn"
-        type="button"
+        type="submit"
+        value="Finish Recipe"
+        name="finishButton"
+        disabled="disabled"
+        id="finishButton"
         onClick={ () => history.push('/done-recipes') }
-      >
-        Finish Recipe
-      </button>
+      />
     </div>
   );
 }
