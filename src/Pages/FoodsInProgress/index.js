@@ -1,13 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import clipBoard from 'clipboard-copy';
 import DetailsContext from '../../Context/DetailsContext';
 import { fetchMealsById } from '../../Services';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 
 function FoodsInProgress() {
   const { id } = useParams();
   const history = useHistory();
+  const [share, setShare] = useState('Share');
 
   function copyLink() {
     clipBoard(`http://localhost:3000/foods/${id}`);
@@ -22,7 +25,19 @@ function FoodsInProgress() {
     filterIngredients,
     // recomended,
     // strMeal,
+    favoriteRecepies,
+    setFavoriteRecepies,
+    isFavorite,
+    setIsFavorite,
   } = useContext(DetailsContext);
+
+  const verifyLocalStorage = useCallback(() => {
+    const alredyFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (alredyFav !== null) {
+      setIsFavorite(alredyFav.some((e) => e.id === id));
+      setFavoriteRecepies(alredyFav);
+    }
+  }, [id, setIsFavorite, setFavoriteRecepies]);
 
   useEffect(() => {
     async function initialFetchId() {
@@ -31,7 +46,8 @@ function FoodsInProgress() {
       filterIngredients(response.meals[0]);
     }
     initialFetchId();
-  }, [setDetails, id, filterIngredients]);
+    verifyLocalStorage();
+  }, [setDetails, id, filterIngredients, verifyLocalStorage]);
 
   const {
     strMealThumb,
@@ -39,8 +55,32 @@ function FoodsInProgress() {
     strMeal,
     strInstructions,
     // strYoutube,
-    // strArea,
+    strArea,
   } = details;
+
+  function saveNewFavorite() {
+    const newFav = {
+      id,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+
+    if (isFavorite === false) {
+      localStorage.setItem('favoriteRecipes',
+        JSON.stringify([...favoriteRecepies, newFav]));
+      setFavoriteRecepies([...favoriteRecepies, newFav]);
+      setIsFavorite(true);
+    } else {
+      localStorage.setItem('favoriteRecipes',
+        JSON.stringify([...favoriteRecepies.filter((e) => e.id !== id)]));
+      setFavoriteRecepies(favoriteRecepies.filter((e) => e.id !== id));
+      setIsFavorite(false);
+    }
+  }
 
   // https://stackoverflow.com/questions/40143108/disable-button-if-all-checkboxes-are-unchecked
 
@@ -59,8 +99,6 @@ function FoodsInProgress() {
     if (allTrue(checks)) fnshBtn.disabled = false;
   }
 
-  //
-
   return (
     <div>
       <img
@@ -76,13 +114,19 @@ function FoodsInProgress() {
         type="button"
         onClick={ copyLink }
       >
-        <img src={ shareIcon } alt="shareIcon" />
+        {share === 'Share'
+          ? <img src={ shareIcon } alt="share" />
+          : share }
       </button>
       <button
-        data-testid="favorite-btn"
         type="button"
+        onClick={ () => saveNewFavorite() }
       >
-        <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="Refeita favorita?"
+        />
       </button>
       <h1
         data-testid="recipe-category"

@@ -5,6 +5,7 @@ import { fetchMealsById } from '../../Services';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 
 function FoodsDetails() {
   const { id } = useParams(); // pega o id da receita na página
@@ -112,8 +113,10 @@ function FoodsDetails() {
             type="button"
             onClick={ copyLink }
           >
-
-            {share}
+            {share === 'Share'
+              ? <img src={ shareIcon } alt="share" />
+              : share }
+            {/* {share} */}
           </button>
           <button
             type="button"
