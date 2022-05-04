@@ -30,6 +30,7 @@ function Login() {
     localStorage.setItem('cocktailsToken', TOKEN);
     localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/foods');
+    console.log('LoginPage')
   }
 
   return (
