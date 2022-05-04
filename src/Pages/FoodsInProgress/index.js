@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import clipBoard from 'clipboard-copy';
-import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
 import { fetchMealsById } from '../../Services';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 
 function FoodsInProgress() {
   const { id } = useParams();

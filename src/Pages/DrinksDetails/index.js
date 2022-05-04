@@ -5,6 +5,7 @@ import { fetchDrinksById } from '../../Services';
 import DetailsContext from '../../Context/DetailsContext';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 
 function DrinksDetails() {
   const { id } = useParams(); // pega o id da receita na página

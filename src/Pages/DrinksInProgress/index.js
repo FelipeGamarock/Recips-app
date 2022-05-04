@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import clipBoard from 'clipboard-copy';
-import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
 import { fetchDrinksById } from '../../Services';
 
