@@ -82,10 +82,15 @@ function FoodsInProgress() {
     }
   }
 
+  function redirectDone() {
+    console.log('redirect');
+    history.push('/done-recipes');
+  }
+
   // https://stackoverflow.com/questions/40143108/disable-button-if-all-checkboxes-are-unchecked
 
   const checks = document.getElementsByName('checkme');
-  const fnshBtn = document.getElementById('finishButton');
+  // const fnshBtn = document.getElementById('finishButton');
 
   function allTrue(cb) {
     for (let i = 0; i < cb.length; i += 1) {
@@ -94,11 +99,15 @@ function FoodsInProgress() {
     return true;
   }
 
-  function disableButton() {
-    fnshBtn.disabled = true;
-    if (allTrue(checks)) fnshBtn.disabled = false;
-  }
+  const [isDisable, setIsDisabled] = useState(true);
 
+  function disableButton() {
+    if (allTrue(checks)) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }
   return (
     <div>
       <img
@@ -158,9 +167,9 @@ function FoodsInProgress() {
         type="submit"
         value="Finish Recipe"
         name="finishButton"
-        disabled="disabled"
+        disabled={ isDisable }
         id="finishButton"
-        onClick={ () => history.push('/done-recipes') }
+        onClick={ () => redirectDone() }
       />
     </div>
   );
