@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer';
 import HeaderForExplore from '../../Components/HeaderForExplore';
 import { fetchIngredientsDrinkList } from '../../Services';
 import Card from '../../Components/Card';
+import SearchContext from '../../Context/SearchContext';
 
 const MAX_LENGTH = 12;
 
 function ExploreDrinksByIngredient() {
-  // const history = useHistory();
+  const { setSearchDrink } = useContext(SearchContext);
+  const history = useHistory();
   const [ingredientsDrinkList, setIngredientsDrinkList] = useState([]);
 
   useEffect(() => {
@@ -18,6 +20,13 @@ function ExploreDrinksByIngredient() {
     }
     RequestIngredientList();
   }, []);
+
+  const handleClick = async (ingredient) => {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    const data = await response.json();
+    setSearchDrink(data);
+    (history.push('/drinks'));
+  };
 
   return (
     <div>
@@ -30,7 +39,7 @@ function ExploreDrinksByIngredient() {
             index={ index }
             type="ingredient"
             src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
-            // onClick={ () => history.push(`/foods/${ingredient}`) }
+            onClick={ () => handleClick(ingredient.strIngredient1) }
             cardTitle={ ingredient.strIngredient1 }
           />
         ))}

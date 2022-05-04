@@ -7,7 +7,7 @@ function SearchBar() {
   const history = useHistory();
   const radioSelected = useRef();
   const input = useRef();
-  const { setSearchFoodOrDrink } = useContext(SearchContext);
+  const { setSearchFoodOrDrink, setSearchDrink } = useContext(SearchContext);
   // const [oneLetter, setOneLetter] = useState(false);
 
   const validateOneLeter = () => {
@@ -32,6 +32,7 @@ function SearchBar() {
     switchFoodOrDrink[urlPath](urlToFetch).then((response) => {
       // console.log(response);
       const fetchResponse = Object.values(response).flat();
+      console.log('teste1');
       // console.log(fetchResponse);
       if (fetchResponse.length === one) {
         if (fetchResponse[0] !== null) {
@@ -42,6 +43,7 @@ function SearchBar() {
         }
       } else {
         setSearchFoodOrDrink(response);
+        setSearchDrink(response);
       }
     });
   };

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import drinkIcon from '../../images/drinkIcon.svg';
 import exploreIcon from '../../images/exploreIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
 import './index.css';
+import SearchContext from '../../Context/SearchContext';
 
 function Footer() {
+  const { initialFetch } = useContext(SearchContext);
   const { push } = useHistory();
+
+  const handleFoodsButton = () => {
+    initialFetch();
+    push('/foods');
+  };
+
   return (
     <footer data-testid="footer" className="footer">
       <button
@@ -35,7 +43,7 @@ function Footer() {
         data-testid="food-bottom-btn"
         src={ mealIcon }
         aria-label="meal-icon"
-        onClick={ () => push('/foods') }
+        onClick={ () => handleFoodsButton() }
       >
         <img
           src={ mealIcon }

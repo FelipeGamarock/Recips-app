@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer';
 import HeaderForExplore from '../../Components/HeaderForExplore';
 import { fetchIngredientsFoodList } from '../../Services';
 import Card from '../../Components/Card';
+import SearchContext from '../../Context/SearchContext';
 
 const MAX_LENGTH = 12;
 
 function ExploreFoodsByIngredient() {
-  // const history = useHistory();
+  const { setSearchFoodOrDrink } = useContext(SearchContext);
+  const history = useHistory();
   const [ingredientsList, setIngredientsList] = useState('');
 
   useEffect(() => {
@@ -18,6 +20,13 @@ function ExploreFoodsByIngredient() {
     }
     RequestIngredientList();
   }, []);
+
+  const handleClick = async (ingredient) => {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    const data = await response.json();
+    setSearchFoodOrDrink(data);
+    (history.push('/foods'));
+  };
 
   return (
     <div>
@@ -29,7 +38,7 @@ function ExploreFoodsByIngredient() {
             index={ index }
             type="ingredient"
             src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
-            // onClick={ () => history.push(`/foods/${ingredient}`) }
+            onClick={ () => handleClick(ingredient.strIngredient) }
             cardTitle={ ingredient.strIngredient }
           />
         ))}
