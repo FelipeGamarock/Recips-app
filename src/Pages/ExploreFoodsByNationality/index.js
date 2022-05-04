@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 // import Header from '../../Components/Header';
 import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer';
@@ -25,13 +25,13 @@ function ExploreFoodsByNationality() {
     setMeals(data.meals.slice(0, MAX_LENGTH));
   };
 
-  const fetchMealByNationality = async () => {
+  const fetchMealByNationality = useCallback(async () => {
     if (selectedOption === 'all') {
       return fetchInitialMeals();
     }
     const data = await fetchMealsByArea(selectedOption);
     setMeals(data.meals.slice(0, MAX_LENGTH));
-  };
+  }, [selectedOption]);
 
   useEffect(() => {
     fetchCountries();
@@ -41,7 +41,7 @@ function ExploreFoodsByNationality() {
   useEffect(() => {
     fetchMealByNationality();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedOption]);
+  }, [selectedOption, fetchMealByNationality]);
 
   const handleSelectorChange = ({ target }) => {
     setSelectedOption(target.value);

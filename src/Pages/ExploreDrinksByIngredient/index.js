@@ -9,7 +9,7 @@ import SearchContext from '../../Context/SearchContext';
 const MAX_LENGTH = 12;
 
 function ExploreDrinksByIngredient() {
-  const { setSearchFoodOrDrink } = useContext(SearchContext);
+  const { setSearchDrink } = useContext(SearchContext);
   const history = useHistory();
   const [ingredientsDrinkList, setIngredientsDrinkList] = useState([]);
 
@@ -24,7 +24,7 @@ function ExploreDrinksByIngredient() {
   const handleClick = async (ingredient) => {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const data = await response.json();
-    setSearchFoodOrDrink(data);
+    setSearchDrink(data);
     (history.push('/drinks'));
   };
 
