@@ -8,14 +8,14 @@ import { fetchNationalitiesList, fetchMeals, fetchMealsByArea } from '../../Serv
 import Card from '../../Components/Card';
 
 function ExploreFoodsByNationality() {
-  // const [showSelector, setShowSelector] = useState(true);
+  const [showSelector, setShowSelector] = useState(true);
   const [nationalities, setNationalities] = useState([]);
   const [selectedOption, setSelectedOption] = useState('all');
   const [meals, setMeals] = useState([]);
   const MAX_LENGTH = 12;
   const history = useHistory();
 
-  const fetchCoutries = async () => {
+  const fetchCountries = async () => {
     const data = await fetchNationalitiesList();
     setNationalities(data.meals);
   };
@@ -34,7 +34,7 @@ function ExploreFoodsByNationality() {
   };
 
   useEffect(() => {
-    fetchCoutries();
+    fetchCountries();
     fetchInitialMeals();
   }, []);
 
@@ -53,44 +53,48 @@ function ExploreFoodsByNationality() {
         <HeaderForExplore title="Explore Nationalities" />
         <button
           type="button"
-          // onClick={ () => setIsSearching(!showSelector) }
+          onClick={ () => setShowSelector(!showSelector) }
           data-testid="search-top-btn"
           src={ searchIcon }
         >
           <img src={ searchIcon } alt="search" />
         </button>
+
+        { showSelector && (
+          <select
+            data-testid="explore-by-nationality-dropdown"
+            onChange={ (event) => handleSelectorChange(event) }
+          >
+            <option
+              data-testid="All-option"
+              value="all"
+            >
+              All
+            </option>
+            {nationalities.map((nationality, ind) => (
+              <option
+                data-testid={ `${nationality.strArea}-option` }
+                value={ nationality.strArea }
+                key={ ind }
+              >
+                {nationality.strArea}
+              </option>))}
+          </select>)}
+
       </header>
 
-      <select
-        data-testid="explore-by-nationality-dropdown"
-        onChange={ (event) => handleSelectorChange(event) }
-      >
-        <option
-          data-testid="All-option"
-          value="all"
-        >
-          All
-        </option>
-        {nationalities.map((nationality, ind) => (
-          <option
-            data-testid={ `${nationality.strArea}-option` }
-            value={ nationality.strArea }
-            key={ ind }
-          >
-            {nationality.strArea}
-          </option>))}
-      </select>
-
-      {meals.map((meal, index) => (
-        <Card
-          key={ `${meal.idMeal}${Math.random() * MAX_LENGTH}` }
-          index={ index }
-          type="recipe"
-          src={ meal.strMealThumb }
-          onClick={ () => history.push(`/foods/${meal.idMeal}`) }
-          cardTitle={ meal.strMeal }
-        />
-      ))}
+      <div>
+        {meals.map((meal, index) => (
+          <Card
+            key={ `${meal.idMeal}${Math.random() * MAX_LENGTH}` }
+            index={ index }
+            type="recipe"
+            src={ meal.strMealThumb }
+            onClick={ () => history.push(`/foods/${meal.idMeal}`) }
+            cardTitle={ meal.strMeal }
+          />
+        ))}
+      </div>
 
       <Footer />
     </div>
