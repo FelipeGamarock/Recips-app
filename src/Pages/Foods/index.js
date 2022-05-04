@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
-import { fetchCategoryMeals, fetchMeals } from '../../Services';
+import { fetchCategoryMeals } from '../../Services';
 import SearchContext from '../../Context/SearchContext';
 import Card from '../../Components/Card';
 import CategoryMealsBtn from '../../Components/CategoryMealsBtn';
@@ -10,9 +10,12 @@ import CategoryMealsBtn from '../../Components/CategoryMealsBtn';
 function Foods() {
   const {
     searchFoodOrDrink,
-    setSearchFoodOrDrink,
+    // setSearchFoodOrDrink,
     mealsCategory,
     setMealsCategory,
+    // firstRender,
+    // setFirstRender,
+    initialFetch,
   } = useContext(SearchContext);
   const responseArray = Object.values(searchFoodOrDrink).flat();
   const responseMealsCategoriy = Object.values(mealsCategory).flat();
@@ -28,18 +31,23 @@ function Foods() {
   //   setSearchFoodOrDrink(response);
   // };
 
-  useEffect(() => {
-    async function initialFetch() {
-      const response = await fetchMeals();
-      console.log(response);
-      setSearchFoodOrDrink(response);
-    }
-    initialFetch();
-  }, [setSearchFoodOrDrink]);
-  async function handleAllBtn() {
-    const response = await fetchMeals();
-    setSearchFoodOrDrink(response);
-  }
+  // useEffect(() => {
+  //   async function initialFetch() {
+  //     if (firstRender) {
+  //       const response = await fetchMeals();
+  //       console.log('renderizou');
+  //       setSearchFoodOrDrink(response);
+  //     }
+  //     setFirstRender(false);
+  //   }
+  //   initialFetch();
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [setSearchFoodOrDrink]);
+
+  // async function handleAllBtn() {
+  //   const response = await fetchMeals();
+  //   setSearchFoodOrDrink(response);
+  // }
 
   const fetchCategories = useCallback(async () => {
     const response = await fetchCategoryMeals();
@@ -67,7 +75,7 @@ function Foods() {
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => handleAllBtn() }
+          onClick={ () => initialFetch() }
         >
           All Categories
         </button>

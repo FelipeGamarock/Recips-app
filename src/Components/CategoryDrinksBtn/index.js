@@ -7,7 +7,7 @@ function CategoryDrinksBtn(category, index) {
   const { categoryName } = category;
   // console.log(categoryName);
   const [toggleCategory, setToggleCategory] = useState(true);
-  const { setSearchFoodOrDrink } = useContext(SearchContext);
+  const { setSearchDrink } = useContext(SearchContext);
 
   const handleCategory = async () => {
     // console.log('click');
@@ -15,11 +15,11 @@ function CategoryDrinksBtn(category, index) {
     if (toggleCategory) {
       const response = await fetchDrinksByCategory(categoryName);
       // console.log(response);
-      setSearchFoodOrDrink(response);
+      setSearchDrink(response);
       setToggleCategory(false);
     } else {
       const standardResponse = await fetchDrinks();
-      setSearchFoodOrDrink(standardResponse);
+      setSearchDrink(standardResponse);
       setToggleCategory(true);
     }
   };
