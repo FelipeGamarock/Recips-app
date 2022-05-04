@@ -109,7 +109,9 @@ function DrinksDetails() {
             type="button"
             onClick={ copyLink }
           >
-            { share }
+            {share === 'Share'
+              ? <img src={ shareIcon } alt="share" />
+              : share }
           </button>
           <button
             type="button"
