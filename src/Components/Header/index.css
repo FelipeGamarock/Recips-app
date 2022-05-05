@@ -1,23 +1,26 @@
-.footer {
+.header-content {
   align-items: center;
   background-color: #c4c4c4;
-  bottom: 0;
   display: flex;
+  flex-direction: row;
   height: 58px;
   justify-content: space-between;
-  margin-left: 0;
-  margin-right: 0;
   max-height: 100%;
   max-width: 100%;
-  position: fixed;
   width: 360px;
 }
 
-.footer-button {
+.header-content h1 {
+  font-size: 30px;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.header-buttton {
   background-color: #c4c4c4;
   border: none;
 }
 
-.footer-button:hover {
+.header-buttton:hover {
   border: 1px solid black;
 }

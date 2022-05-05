@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchContext from '../../Context/SearchContext';
+import './index.css';
 
 function Login() {
   const history = useHistory();
@@ -33,12 +34,13 @@ function Login() {
   }
 
   return (
-    <div>
-      <h1>Login Page</h1>
-      <form>
+    <div className="login-page">
+      <h1>Login</h1>
+      <form className="login-form">
         <label htmlFor="email">
-          Email
           <input
+            className="login-input"
+            placeholder="Email"
             name="email"
             data-testid="email-input"
             id="email"
@@ -48,8 +50,9 @@ function Login() {
           />
         </label>
         <label htmlFor="password">
-          Password
           <input
+            className="password-input"
+            placeholder="Password"
             name="password"
             data-testid="password-input"
             id="password"
@@ -60,6 +63,7 @@ function Login() {
         </label>
 
         <button
+          className="login-button"
           type="button"
           data-testid="login-submit-btn"
           disabled={ validateLogin() }

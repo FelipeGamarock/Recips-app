@@ -5,14 +5,16 @@ import Proptypes from 'prop-types';
 import SearchBar from '../SearchBar';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import './index.css';
 
 function Header({ title }) {
   const { push } = useHistory();
   const [isSearching, setIsSearching] = useState(false); // Tenho que iniciar isso no context provider? ou posso criar a função aqui? ou posso usar apenas um useState ja que só usa aqui
 
   return (
-    <header>
+    <header className="header-content">
       <button
+        className="header-buttton"
         type="button"
         onClick={ () => push('/profile') }
         data-testid="profile-top-btn"
@@ -26,6 +28,7 @@ function Header({ title }) {
       </h1>
 
       <button
+        className="header-buttton"
         type="button"
         onClick={ () => setIsSearching(!isSearching) }
         data-testid="search-top-btn"

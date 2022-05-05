@@ -18,6 +18,7 @@ function Footer() {
   return (
     <footer data-testid="footer" className="footer">
       <button
+        className="footer-button"
         type="button"
         data-testid="drinks-bottom-btn"
         src={ drinkIcon }
@@ -27,6 +28,7 @@ function Footer() {
         <img src={ drinkIcon } alt="drink" />
       </button>
       <button
+        className="footer-button"
         type="button"
         data-testid="explore-bottom-btn"
         src={ exploreIcon }
@@ -39,6 +41,7 @@ function Footer() {
         />
       </button>
       <button
+        className="footer-button"
         type="button"
         data-testid="food-bottom-btn"
         src={ mealIcon }
