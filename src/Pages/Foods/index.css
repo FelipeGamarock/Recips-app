@@ -1,0 +1,21 @@
+.foods-category-container {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.all-categories-button {
+  background-color: #c4c4c4;
+  border: none;
+  border-radius: 6px;
+  height: 28px;
+  margin: 10px 5px;
+  width: 105px;
+}
+
+.food-recipes-container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}

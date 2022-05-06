@@ -1,0 +1,23 @@
+.header-for-explore {
+  align-items: center;
+  background-color: #c4c4c4;
+  display: flex;
+  height: 58px;
+  justify-content: flex-start;
+}
+
+.header-for-explore h1 {
+  font-size: 1.6rem;
+  text-align: center;
+
+}
+
+.header-btn {
+  background-color: #c4c4c4;
+  border: none;
+  margin-right: 20px;
+}
+
+.header-btn:hover {
+  border: 1px solid black;
+}

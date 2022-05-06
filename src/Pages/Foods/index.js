@@ -6,6 +6,7 @@ import { fetchCategoryMeals } from '../../Services';
 import SearchContext from '../../Context/SearchContext';
 import Card from '../../Components/Card';
 import CategoryMealsBtn from '../../Components/CategoryMealsBtn';
+import './index.css';
 
 function Foods() {
   const {
@@ -61,7 +62,7 @@ function Foods() {
   return (
     <div className="cardsClass">
       <Header title="Foods" />
-      <div>
+      <div className="foods-category-container">
         {
           responseMealsCategoriy.slice(0, MAX_CATEGORIES).map((category, index) => (
             <CategoryMealsBtn
@@ -70,9 +71,8 @@ function Foods() {
             />
           ))
         }
-      </div>
-      <div>
         <button
+          className="all-categories-button"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => initialFetch() }
@@ -80,7 +80,8 @@ function Foods() {
           All Categories
         </button>
       </div>
-      <div>
+
+      <div className="food-recipes-container">
         {responseArray.slice(0, MAX_LENGTH).map((aux, index) => (
           <Card
             key={ `${aux.idMeal}${Math.random() * MAX_LENGTH}` }

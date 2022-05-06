@@ -2,6 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchContext from '../../Context/SearchContext';
 import { switchFoodOrDrink } from '../../Services';
+import './index.css';
 
 function SearchBar() {
   const history = useHistory();
@@ -49,9 +50,10 @@ function SearchBar() {
   };
 
   return (
-    <form>
+    <form className="search-section">
       <label htmlFor="search-input">
         <input
+          className="search-input"
           type="text"
           data-testid="search-input"
           id="search-input"
@@ -60,7 +62,7 @@ function SearchBar() {
         />
       </label>
 
-      <div>
+      <div className="radio-box">
         <label htmlFor="ingredient-search-radio">
           <input
             type="radio"
@@ -93,15 +95,16 @@ function SearchBar() {
           />
           First Letter
         </label>
-
-        <button
-          data-testid="exec-search-btn"
-          type="button"
-          onClick={ () => { handleFetch(); } }
-        >
-          Search
-        </button>
       </div>
+
+      <button
+        className="search-button"
+        data-testid="exec-search-btn"
+        type="button"
+        onClick={ () => { handleFetch(); } }
+      >
+        Search
+      </button>
     </form>
   );
 }

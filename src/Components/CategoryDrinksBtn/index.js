@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import SearchContext from '../../Context/SearchContext';
 import { fetchDrinksByCategory, fetchDrinks } from '../../Services';
+import './index.css';
 
 function CategoryDrinksBtn(category, index) {
   // console.log('btn');
@@ -27,6 +28,7 @@ function CategoryDrinksBtn(category, index) {
   return (
     <section className="btn-category" key={ index }>
       <button
+        className="drinks-category-button"
         type="submit"
         data-testid={ `${categoryName}-category-filter` }
         onClick={ () => handleCategory() }

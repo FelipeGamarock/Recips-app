@@ -1,0 +1,27 @@
+.profile-btn-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-btn-container p {
+  font-size: 1.6rem;
+  margin: 40px;
+}
+
+.profile-btn {
+  background-color: #c4c4c4;
+  border: none;
+  font-size: 30px;
+  height: 53px;
+  margin: 16px 0;
+  width: 80%;
+}
+
+.profile-btn:hover {
+  border: 1px solid black;
+}
+
+.profile-btn:active {
+  background-color: #7a7a7a;
+}
