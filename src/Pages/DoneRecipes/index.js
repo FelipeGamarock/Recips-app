@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import DetailsContext from '../../Context/DetailsContext';
 import HeaderForExplore from '../../Components/HeaderForExplore';
 import DoneFavoriteFiltersBtns from '../../Components/DoneFavoriteFiltersBtns';
 import DoneRecipesCard from '../../Components/DoneRecipesCard';
 
 function DoneRecipes() {
+  const {
+    details,
+    ingredients,
+    date,
+  } = useContext(DetailsContext);
+
+  useEffect(() => {
+    console.log(details);
+    console.log(ingredients);
+    console.log(date);
+  }, []);
+
   return (
     <div>
       <HeaderForExplore title="Done Recipes" />

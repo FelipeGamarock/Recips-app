@@ -29,6 +29,7 @@ function FoodsInProgress() {
     setFavoriteRecepies,
     isFavorite,
     setIsFavorite,
+    setDate,
   } = useContext(DetailsContext);
 
   const verifyLocalStorage = useCallback(() => {
@@ -82,8 +83,17 @@ function FoodsInProgress() {
     }
   }
 
+  function getCurrentDate() {
+    const data = new Date();
+    const day = data.getDate();
+    const month = data.getMonth() + 1;
+    const year = data.getFullYear();
+    const completeDate = `${day}/${month}/${year}`;
+    return completeDate;
+  }
+
   function redirectDone() {
-    console.log('redirect');
+    setDate(getCurrentDate());
     history.push('/done-recipes');
   }
 
