@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import SearchContext from '../../Context/SearchContext';
 import { fetchMealsByCategory, fetchMeals } from '../../Services';
+import './index.css';
 
 function CategoryMealsBtn(category, index) {
   // console.log('btn');
@@ -22,8 +23,9 @@ function CategoryMealsBtn(category, index) {
   };
 
   return (
-    <section className="btn-category" key={ index }>
+    <section key={ index }>
       <button
+        className="foods-category-button"
         type="button"
         data-testid={ `${categoryName}-category-filter` }
         onClick={ () => handleCategory() }

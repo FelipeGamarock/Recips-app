@@ -6,6 +6,7 @@ import { fetchCategoryDrinks } from '../../Services';
 import SearchContext from '../../Context/SearchContext';
 import Card from '../../Components/Card';
 import CategoryDrinksBtn from '../../Components/CategoryDrinksBtn';
+import './index.css';
 
 function Drinks() {
   const {
@@ -55,7 +56,7 @@ function Drinks() {
   return (
     <div className="cardsClass">
       <Header title="Drinks" />
-      <div>
+      <div className="drinks-category-container">
         {
           responseDrinksCategoriy.slice(0, MAX_CATEGORIES).map((category, index) => (
             <CategoryDrinksBtn
@@ -64,9 +65,8 @@ function Drinks() {
             />
           ))
         }
-      </div>
-      <div>
         <button
+          className="all-categories-btn"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => initialDrinksFetch() }
