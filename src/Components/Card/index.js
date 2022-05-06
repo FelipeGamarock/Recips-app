@@ -8,7 +8,7 @@ export default function Card({ src, cardTitle, index, type, onClick }) {
       type="button"
       data-testid={ `${index}-${type}-card` }
       onClick={ onClick }
-      className="card-class"
+      className="food-recepi-cards"
     >
       <h4 data-testid={ `${index}-card-name` }>{cardTitle}</h4>
       <img
