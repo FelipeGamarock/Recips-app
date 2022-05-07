@@ -4,17 +4,30 @@ import HeaderForExplore from '../../Components/HeaderForExplore';
 import DoneFavoriteFiltersBtns from '../../Components/DoneFavoriteFiltersBtns';
 import DoneRecipesCard from '../../Components/DoneRecipesCard';
 
+//  tags: Details -> strTags
+// Titulo da receita: Detail -> strMeal
+// Url imagem: Detail -> strMealThumb
+// Id: Detail -> idMeal
+// Categoria Area: Detail -> strArea /  strCategory
+
 function DoneRecipes() {
   const {
     details,
-    ingredients,
+    // ingredients,
     date,
   } = useContext(DetailsContext);
 
   useEffect(() => {
-    console.log(details);
-    console.log(ingredients);
+    const { strTags, strMeal, strMealThumb, idMeal, strArea, strCategory } = details;
+    // console.log(typeof (details));
+    // console.log(ingredients);
     console.log(date);
+    console.log(`strTags: ${strTags}`);
+    console.log(`strMeal: ${strMeal}`);
+    console.log(`strMealThumb: ${strMealThumb}`);
+    console.log(`idMeal: ${idMeal}`);
+    console.log(`strArea: ${strArea}`);
+    console.log(`strCategory: ${strCategory}`);
   }, []);
 
   return (
@@ -23,6 +36,7 @@ function DoneRecipes() {
       <DoneFavoriteFiltersBtns />
       <main>
         <DoneRecipesCard
+          date={ date }
           index="0"
           tagName="Pasta"
           src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg  "

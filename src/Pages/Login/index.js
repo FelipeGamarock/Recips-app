@@ -27,6 +27,8 @@ function Login() {
   };
 
   function loginUser() {
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     localStorage.setItem('mealsToken', TOKEN);
     localStorage.setItem('cocktailsToken', TOKEN);
     localStorage.setItem('user', JSON.stringify({ email }));
