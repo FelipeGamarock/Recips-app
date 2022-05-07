@@ -13,6 +13,7 @@ function DetailsProvider({ children }) {
   const [favoriteRecepies, setFavoriteRecepies] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [date, setDate] = useState('');
+  const [doneRecipes, setDoneRecipes] = useState([]);
   const pageType = history.location.pathname.split('/')[1];
 
   const fetchRecomended = (async (type) => {
@@ -51,6 +52,8 @@ function DetailsProvider({ children }) {
     setIsFavorite,
     date,
     setDate,
+    doneRecipes,
+    setDoneRecipes,
   };
 
   return (

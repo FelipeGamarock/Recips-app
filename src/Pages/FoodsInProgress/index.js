@@ -30,6 +30,8 @@ function FoodsInProgress() {
     isFavorite,
     setIsFavorite,
     setDate,
+    // doneRecipes,
+    // setDoneRecipes,
   } = useContext(DetailsContext);
 
   const verifyLocalStorage = useCallback(() => {
@@ -50,6 +52,7 @@ function FoodsInProgress() {
     verifyLocalStorage();
   }, [setDetails, id, filterIngredients, verifyLocalStorage]);
 
+  //  const { strTags, idMeal } = details;
   const {
     strMealThumb,
     strCategory,
@@ -57,6 +60,8 @@ function FoodsInProgress() {
     strInstructions,
     // strYoutube,
     strArea,
+    strTags,
+    idMeal,
   } = details;
 
   function saveNewFavorite() {
@@ -92,7 +97,22 @@ function FoodsInProgress() {
     return completeDate;
   }
 
+  // const { strTags, strMeal, strMealThumb, idMeal, strArea, strCategory }
+  function addDoneRecipeToLocalStorage() {
+    console.log(strTags);
+    const doneRecipeObject = {
+      strTags,
+      strMeal,
+      strMealThumb,
+      idMeal,
+      strArea,
+      strCategory,
+    };
+    console.log(doneRecipeObject); // console log ok
+  }
+
   function redirectDone() {
+    addDoneRecipeToLocalStorage();
     setDate(getCurrentDate());
     history.push('/done-recipes');
   }
