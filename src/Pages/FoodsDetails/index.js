@@ -11,6 +11,8 @@ function FoodsDetails() {
   const { id } = useParams(); // pega o id da receita na página
   const history = useHistory();
   const [share, setShare] = useState('Share');
+  const [isStartButtonOn, setIsStartButtonOn] = useState(true);
+
   const {
     details,
     setDetails,
@@ -41,7 +43,16 @@ function FoodsDetails() {
     setShare('Link copied!');
   }
 
+  function handleStartButton() {
+    const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (allDoneRecipes) {
+      const trueOrFalse = allDoneRecipes.some((doneRecipe) => doneRecipe.idMeal === id);
+      setIsStartButtonOn(!trueOrFalse);
+    }
+  }
+
   useEffect(() => {
+    handleStartButton();
     async function initialFetchId() {
       const response = await fetchMealsById(id);
       setDetails(response.meals[0]);
@@ -93,6 +104,17 @@ function FoodsDetails() {
   const recomendedArray = Object.values(recomended).flat();
   const MAX_RECOMENDED = 6;
   console.log('Render');
+
+  const startButton = (
+    <button
+      data-testid="start-recipe-btn"
+      type="button"
+      onClick={ btnStartRecepie }
+      style={ { position: 'fixed', bottom: '0' } }
+    >
+      Start recipe
+    </button>
+  );
 
   return (
     <div>
@@ -178,14 +200,8 @@ function FoodsDetails() {
             ))}
         </div>
       </section>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ btnStartRecepie }
-        style={ { position: 'fixed', bottom: '0' } }
-      >
-        Start recipe
-      </button>
+      { isStartButtonOn && startButton }
+
     </div>
   );
 }

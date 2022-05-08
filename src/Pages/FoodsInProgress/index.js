@@ -11,6 +11,7 @@ function FoodsInProgress() {
   const { id } = useParams();
   const history = useHistory();
   const [share, setShare] = useState('Share');
+  // const [doneRecipes, setDoneRecipes] = useState([]);
 
   function copyLink() {
     clipBoard(`http://localhost:3000/foods/${id}`);
@@ -98,17 +99,20 @@ function FoodsInProgress() {
   }
 
   // const { strTags, strMeal, strMealThumb, idMeal, strArea, strCategory }
+
+  const doneRecipeObject = {
+    strTags,
+    strMeal,
+    strMealThumb,
+    idMeal,
+    strArea,
+    strCategory,
+  };
+
   function addDoneRecipeToLocalStorage() {
-    console.log(strTags);
-    const doneRecipeObject = {
-      strTags,
-      strMeal,
-      strMealThumb,
-      idMeal,
-      strArea,
-      strCategory,
-    };
-    console.log(doneRecipeObject); // console log ok
+    const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    localStorage.setItem('doneRecipes',
+      JSON.stringify([...allDoneRecipes, doneRecipeObject]));
   }
 
   function redirectDone() {
