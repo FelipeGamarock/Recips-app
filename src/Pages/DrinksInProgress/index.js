@@ -39,6 +39,7 @@ function DrinksInProgress() {
   }, [id, setIsFavorite, setFavoriteRecepies]);
 
   useEffect(() => {
+    console.log(details);
     async function initialFetchIdDrink() {
       const response = await fetchDrinksById(id);
       setDetails(response.drinks[0]);
@@ -54,6 +55,9 @@ function DrinksInProgress() {
     strAlcoholic,
     strDrink,
     strInstructions,
+    strArea,
+    strTags,
+    idDrink,
   } = details;
 
   function saveNewFavorite() {
@@ -101,6 +105,38 @@ function DrinksInProgress() {
     } else {
       setIsDisabled(true);
     }
+  }
+
+  function getCurrentDate() {
+    const data = new Date();
+    const day = data.getDate();
+    const month = data.getMonth() + 1;
+    const year = data.getFullYear();
+    const completeDate = `${day}/${month}/${year}`;
+    return completeDate;
+  }
+
+  function addDoneRecipeToLocalStorage() {
+    const clickDate = getCurrentDate();
+    const doneRecipeObject = {
+      id: idDrink,
+      type: 'drink',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: clickDate,
+      tags: strTags,
+    };
+    const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    localStorage.setItem('doneRecipes',
+      JSON.stringify([...allDoneRecipes, doneRecipeObject]));
+  }
+
+  function redirectDone() {
+    addDoneRecipeToLocalStorage();
+    history.push('/done-recipes');
   }
   return (
     <div>
@@ -163,7 +199,7 @@ function DrinksInProgress() {
         name="finishButton"
         disabled={ isDisable }
         id="finishButton"
-        onClick={ () => history.push('/done-recipes') }
+        onClick={ () => redirectDone() }
       />
     </div>
   );

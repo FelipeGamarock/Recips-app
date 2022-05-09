@@ -30,7 +30,8 @@ function FoodsInProgress() {
     setFavoriteRecepies,
     isFavorite,
     setIsFavorite,
-    setDate,
+    // setDate,
+    // date,
     // doneRecipes,
     // setDoneRecipes,
   } = useContext(DetailsContext);
@@ -100,16 +101,19 @@ function FoodsInProgress() {
 
   // const { strTags, strMeal, strMealThumb, idMeal, strArea, strCategory }
 
-  const doneRecipeObject = {
-    strTags,
-    strMeal,
-    strMealThumb,
-    idMeal,
-    strArea,
-    strCategory,
-  };
-
   function addDoneRecipeToLocalStorage() {
+    const clickDate = getCurrentDate();
+    const doneRecipeObject = {
+      id: idMeal,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: clickDate,
+      tags: strTags,
+    };
     const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     localStorage.setItem('doneRecipes',
       JSON.stringify([...allDoneRecipes, doneRecipeObject]));
@@ -117,7 +121,6 @@ function FoodsInProgress() {
 
   function redirectDone() {
     addDoneRecipeToLocalStorage();
-    setDate(getCurrentDate());
     history.push('/done-recipes');
   }
 

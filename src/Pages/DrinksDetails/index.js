@@ -11,6 +11,7 @@ function DrinksDetails() {
   const { id } = useParams(); // pega o id da receita na página
   const history = useHistory();
   const [share, setShare] = useState('Share');
+  const [isStartButtonOn, setIsStartButtonOn] = useState(true);
   const {
     details,
     setDetails,
@@ -41,7 +42,16 @@ function DrinksDetails() {
     setShare('Link copied!');
   }
 
+  function handleStartButton() {
+    const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (allDoneRecipes) {
+      const isRecipeDone = allDoneRecipes.some((doneRecipe) => doneRecipe.id === id);
+      setIsStartButtonOn(!isRecipeDone);
+    }
+  }
+
   useEffect(() => {
+    handleStartButton();
     async function initialFetchIdDrink() {
       const response = await fetchDrinksById(id);
       setDetails(response.drinks[0]);
@@ -86,6 +96,17 @@ function DrinksDetails() {
       setIsFavorite(false);
     }
   }
+
+  const startButton = (
+    <button
+      data-testid="start-recipe-btn"
+      type="button"
+      onClick={ btnStartRecepie }
+      style={ { position: 'fixed', bottom: '0' } }
+    >
+      Start recipe
+    </button>
+  );
   return (
     <div>
       <h1>DrinksDetails</h1>
@@ -159,14 +180,7 @@ function DrinksDetails() {
             ))}
         </div>
       </section>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ btnStartRecepie }
-        style={ { position: 'fixed', bottom: '0' } }
-      >
-        Start recipe
-      </button>
+      { isStartButtonOn && startButton }
     </div>
   );
 }

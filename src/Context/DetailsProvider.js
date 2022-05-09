@@ -12,7 +12,7 @@ function DetailsProvider({ children }) {
   const [recomended, setRecomended] = useState([]);
   const [favoriteRecepies, setFavoriteRecepies] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [date, setDate] = useState('');
+  // const [date, setDate] = useState('');
   const [doneRecipes, setDoneRecipes] = useState([]);
   const pageType = history.location.pathname.split('/')[1];
 
@@ -50,8 +50,8 @@ function DetailsProvider({ children }) {
     setFavoriteRecepies,
     isFavorite,
     setIsFavorite,
-    date,
-    setDate,
+    // date,
+    // setDate,
     doneRecipes,
     setDoneRecipes,
   };

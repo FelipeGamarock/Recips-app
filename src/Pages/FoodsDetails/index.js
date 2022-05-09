@@ -46,8 +46,8 @@ function FoodsDetails() {
   function handleStartButton() {
     const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (allDoneRecipes) {
-      const trueOrFalse = allDoneRecipes.some((doneRecipe) => doneRecipe.idMeal === id);
-      setIsStartButtonOn(!trueOrFalse);
+      const isRecipeDone = allDoneRecipes.some((doneRecipe) => doneRecipe.id === id);
+      setIsStartButtonOn(!isRecipeDone);
     }
   }
 
@@ -200,8 +200,8 @@ function FoodsDetails() {
             ))}
         </div>
       </section>
+      {' '}
       { isStartButtonOn && startButton }
-
     </div>
   );
 }
