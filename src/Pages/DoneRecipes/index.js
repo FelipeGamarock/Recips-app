@@ -3,6 +3,7 @@ import DetailsContext from '../../Context/DetailsContext';
 import HeaderForExplore from '../../Components/HeaderForExplore';
 import DoneFavoriteFiltersBtns from '../../Components/DoneFavoriteFiltersBtns';
 import DoneRecipesCard from '../../Components/DoneRecipesCard';
+import UnderConstruction from '../../Components/UnderConstruction';
 
 //  tags: Details -> strTags
 // Titulo da receita: Detail -> strMeal
@@ -32,6 +33,7 @@ function DoneRecipes() {
 
   return (
     <div>
+      <UnderConstruction />
       <HeaderForExplore title="Done Recipes" />
       <DoneFavoriteFiltersBtns />
       <main>
