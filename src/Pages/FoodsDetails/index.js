@@ -6,13 +6,13 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
+import handleStartButton from '../../Functions/DetailsFunctions';
 
 function FoodsDetails() {
   const { id } = useParams(); // pega o id da receita na página
   const history = useHistory();
   const [share, setShare] = useState('Share');
   const [isStartButtonOn, setIsStartButtonOn] = useState(true);
-
   const {
     details,
     setDetails,
@@ -43,16 +43,8 @@ function FoodsDetails() {
     setShare('Link copied!');
   }
 
-  function handleStartButton() {
-    const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (allDoneRecipes) {
-      const isRecipeDone = allDoneRecipes.some((doneRecipe) => doneRecipe.id === id);
-      setIsStartButtonOn(!isRecipeDone);
-    }
-  }
-
   useEffect(() => {
-    handleStartButton();
+    handleStartButton(id, setIsStartButtonOn);
     async function initialFetchId() {
       const response = await fetchMealsById(id);
       setDetails(response.meals[0]);
@@ -83,23 +75,17 @@ function FoodsDetails() {
     };
 
     if (isFavorite === false) {
-      // console.log(favoriteRecepies);
       localStorage.setItem('favoriteRecipes',
         JSON.stringify([...favoriteRecepies, newFav]));
       setFavoriteRecepies([...favoriteRecepies, newFav]);
       setIsFavorite(true);
     } else {
-      // console.log('aqui');
-      // console.log(favoriteRecepies);
-      // console.log('remove');
-      // console.log(favoriteRecepies.filter((e) => e.id !== id));
       localStorage.setItem('favoriteRecipes',
         JSON.stringify([...favoriteRecepies.filter((e) => e.id !== id)]));
       setFavoriteRecepies(favoriteRecepies.filter((e) => e.id !== id));
       setIsFavorite(false);
     }
   }
-  // console.log(favoriteRecepies);
 
   const recomendedArray = Object.values(recomended).flat();
   const MAX_RECOMENDED = 6;
@@ -138,7 +124,7 @@ function FoodsDetails() {
             {share === 'Share'
               ? <img src={ shareIcon } alt="share" />
               : share }
-            {/* {share} */}
+
           </button>
           <button
             type="button"

@@ -6,6 +6,7 @@ import { fetchMealsById } from '../../Services';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
+import getCurrentDate from '../../Functions/InProgressFunctions/index';
 
 function FoodsInProgress() {
   const { id } = useParams();
@@ -22,18 +23,11 @@ function FoodsInProgress() {
     details,
     setDetails,
     ingredients,
-    // quantities,
     filterIngredients,
-    // recomended,
-    // strMeal,
     favoriteRecepies,
     setFavoriteRecepies,
     isFavorite,
     setIsFavorite,
-    // setDate,
-    // date,
-    // doneRecipes,
-    // setDoneRecipes,
   } = useContext(DetailsContext);
 
   const verifyLocalStorage = useCallback(() => {
@@ -54,13 +48,11 @@ function FoodsInProgress() {
     verifyLocalStorage();
   }, [setDetails, id, filterIngredients, verifyLocalStorage]);
 
-  //  const { strTags, idMeal } = details;
   const {
     strMealThumb,
     strCategory,
     strMeal,
     strInstructions,
-    // strYoutube,
     strArea,
     strTags,
     idMeal,
@@ -90,17 +82,6 @@ function FoodsInProgress() {
     }
   }
 
-  function getCurrentDate() {
-    const data = new Date();
-    const day = data.getDate();
-    const month = data.getMonth() + 1;
-    const year = data.getFullYear();
-    const completeDate = `${day}/${month}/${year}`;
-    return completeDate;
-  }
-
-  // const { strTags, strMeal, strMealThumb, idMeal, strArea, strCategory }
-
   function addDoneRecipeToLocalStorage() {
     const clickDate = getCurrentDate();
     const doneRecipeObject = {
@@ -127,7 +108,6 @@ function FoodsInProgress() {
   // https://stackoverflow.com/questions/40143108/disable-button-if-all-checkboxes-are-unchecked
 
   const checks = document.getElementsByName('checkme');
-  // const fnshBtn = document.getElementById('finishButton');
 
   function allTrue(cb) {
     for (let i = 0; i < cb.length; i += 1) {

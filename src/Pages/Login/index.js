@@ -26,7 +26,23 @@ function Login() {
     );
   };
 
+  //   a chave inProgressRecipes deve conter a seguinte estrutura:
+  // {
+  //     cocktails: {
+  //         id-da-bebida: [lista-de-ingredientes-utilizados],
+  //         ...
+  //     },
+  //     meals: {
+  //         id-da-comida: [lista-de-ingredientes-utilizados],
+  //         ...
+  //     }
+  // }
+  const inProgressRecipe = {
+    cocktails: {},
+    meals: {},
+  };
   function loginUser() {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipe));
     localStorage.setItem('doneRecipes', JSON.stringify([]));
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     localStorage.setItem('mealsToken', TOKEN);

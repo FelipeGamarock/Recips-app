@@ -6,6 +6,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
 import { fetchDrinksById } from '../../Services';
+import getCurrentDate from '../../Functions/InProgressFunctions/index';
 
 function DrinksInProgress() {
   const { id } = useParams();
@@ -39,7 +40,7 @@ function DrinksInProgress() {
   }, [id, setIsFavorite, setFavoriteRecepies]);
 
   useEffect(() => {
-    console.log(details);
+    // console.log(ingredients);
     async function initialFetchIdDrink() {
       const response = await fetchDrinksById(id);
       setDetails(response.drinks[0]);
@@ -105,15 +106,6 @@ function DrinksInProgress() {
     } else {
       setIsDisabled(true);
     }
-  }
-
-  function getCurrentDate() {
-    const data = new Date();
-    const day = data.getDate();
-    const month = data.getMonth() + 1;
-    const year = data.getFullYear();
-    const completeDate = `${day}/${month}/${year}`;
-    return completeDate;
   }
 
   function addDoneRecipeToLocalStorage() {

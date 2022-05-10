@@ -6,6 +6,7 @@ import DetailsContext from '../../Context/DetailsContext';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
+import handleStartButton from '../../Functions/DetailsFunctions';
 
 function DrinksDetails() {
   const { id } = useParams(); // pega o id da receita na página
@@ -26,7 +27,14 @@ function DrinksDetails() {
   } = useContext(DetailsContext);
 
   const verifyLocalStorage = useCallback(() => {
+    // const allStarted = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    // if (allStarted.cocktails) {
+    //   const drinksIDs = Object.keys(allStarted.cocktails);
+    //   const isStarted = drinksIDs.some((drinkID) => drinkID === id);
+    //   console.log(isStarted);
+    // }
     const alredyFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
     if (alredyFav !== null) {
       setIsFavorite(alredyFav.some((e) => e.id === id));
       setFavoriteRecepies(alredyFav);
@@ -42,20 +50,11 @@ function DrinksDetails() {
     setShare('Link copied!');
   }
 
-  function handleStartButton() {
-    const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (allDoneRecipes) {
-      const isRecipeDone = allDoneRecipes.some((doneRecipe) => doneRecipe.id === id);
-      setIsStartButtonOn(!isRecipeDone);
-    }
-  }
-
   useEffect(() => {
-    handleStartButton();
+    handleStartButton(id, setIsStartButtonOn);
     async function initialFetchIdDrink() {
       const response = await fetchDrinksById(id);
       setDetails(response.drinks[0]);
-      // console.log(response.drinks[0]);
       filterIngredients(response.drinks[0]);
     }
     initialFetchIdDrink();
@@ -65,8 +64,6 @@ function DrinksDetails() {
   const { strDrinkThumb, strCategory, strAlcoholic, strDrink, strInstructions } = details;
   const recomendedArray = Object.values(recomended).flat();
   const MAX_RECOMENDED = 6;
-  // console.log(ingredients);
-  // console.log(quantities);
 
   function saveNewFavorite() {
     const newFav = {
@@ -80,16 +77,11 @@ function DrinksDetails() {
     };
 
     if (isFavorite === false) {
-      // console.log(favoriteRecepies);
       localStorage.setItem('favoriteRecipes',
         JSON.stringify([...favoriteRecepies, newFav]));
       setFavoriteRecepies([...favoriteRecepies, newFav]);
       setIsFavorite(true);
     } else {
-      // console.log('aqui');
-      // console.log(favoriteRecepies);
-      // console.log('remove');
-      // console.log(favoriteRecepies.filter((e) => e.id !== id));
       localStorage.setItem('favoriteRecipes',
         JSON.stringify([...favoriteRecepies.filter((e) => e.id !== id)]));
       setFavoriteRecepies(favoriteRecepies.filter((e) => e.id !== id));
