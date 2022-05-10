@@ -1,0 +1,18 @@
+.explore-btn {
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 1.4rem;
+  height: 82px;
+  margin: 20px;
+  width: 90%;
+}
+
+.explore-btn:hover {
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.explore-btn:active {
+  background-color: #7e7e7e;
+}

@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
-// import Header from '../../Components/Header';
 import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer';
 import searchIcon from '../../images/searchIcon.svg';
 import HeaderForExplore from '../../Components/HeaderForExplore';
 import { fetchNationalitiesList, fetchMeals, fetchMealsByArea } from '../../Services';
 import Card from '../../Components/Card';
+import './index.css';
 
 function ExploreFoodsByNationality() {
   const [showSelector, setShowSelector] = useState(true);
@@ -49,9 +49,10 @@ function ExploreFoodsByNationality() {
 
   return (
     <div>
-      <header>
+      <header className="header-nationalities">
         <HeaderForExplore title="Explore Nationalities" />
         <button
+          className="search-btn"
           type="button"
           onClick={ () => setShowSelector(!showSelector) }
           data-testid="search-top-btn"
@@ -59,29 +60,29 @@ function ExploreFoodsByNationality() {
         >
           <img src={ searchIcon } alt="search" />
         </button>
-
-        { showSelector && (
-          <select
-            data-testid="explore-by-nationality-dropdown"
-            onChange={ (event) => handleSelectorChange(event) }
-          >
-            <option
-              data-testid="All-option"
-              value="all"
-            >
-              All
-            </option>
-            {nationalities.map((nationality, ind) => (
-              <option
-                data-testid={ `${nationality.strArea}-option` }
-                value={ nationality.strArea }
-                key={ ind }
-              >
-                {nationality.strArea}
-              </option>))}
-          </select>)}
-
       </header>
+
+      { showSelector && (
+        <select
+          className="nationalities-selector"
+          data-testid="explore-by-nationality-dropdown"
+          onChange={ (event) => handleSelectorChange(event) }
+        >
+          <option
+            data-testid="All-option"
+            value="all"
+          >
+            All
+          </option>
+          {nationalities.map((nationality, ind) => (
+            <option
+              data-testid={ `${nationality.strArea}-option` }
+              value={ nationality.strArea }
+              key={ ind }
+            >
+              {nationality.strArea}
+            </option>))}
+        </select>)}
 
       <div>
         {meals.map((meal, index) => (

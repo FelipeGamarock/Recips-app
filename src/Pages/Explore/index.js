@@ -1,32 +1,24 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer';
 import HeaderForExplore from '../../Components/HeaderForExplore';
+import ExploreBtn from '../../Components/ExploreBtn';
 
 function Explore() {
-  const history = useHistory();
-
   return (
     <div>
       <HeaderForExplore title="Explore" />
       <div>
-        <button
-          type="button"
-          data-testid="explore-foods"
-          onClick={ () => history.push('/explore/foods') }
-        >
-          Explore Foods
+        <ExploreBtn
+          title="Explore Foods"
+          testeid="explore-foods"
+          route="/explore/foods"
+        />
 
-        </button>
-
-        <button
-          type="button"
-          data-testid="explore-drinks"
-          onClick={ () => history.push('/explore/drinks') }
-        >
-          Explore Drinks
-
-        </button>
+        <ExploreBtn
+          title="Explore Drinks"
+          testeid="explore-drinks"
+          route="/explore/drinks"
+        />
       </div>
       <Footer />
     </div>
