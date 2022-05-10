@@ -6,11 +6,13 @@ import { fetchMealsById } from '../../Services';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
+import { getCurrentDate, SaveDoneRecipe } from '../../Functions/InProgressFunctions';
 
 function FoodsInProgress() {
   const { id } = useParams();
   const history = useHistory();
   const [share, setShare] = useState('Share');
+  // const [doneRecipes, setDoneRecipes] = useState([]);
 
   function copyLink() {
     clipBoard(`http://localhost:3000/foods/${id}`);
@@ -21,10 +23,7 @@ function FoodsInProgress() {
     details,
     setDetails,
     ingredients,
-    // quantities,
     filterIngredients,
-    // recomended,
-    // strMeal,
     favoriteRecepies,
     setFavoriteRecepies,
     isFavorite,
@@ -54,8 +53,9 @@ function FoodsInProgress() {
     strCategory,
     strMeal,
     strInstructions,
-    // strYoutube,
     strArea,
+    strTags,
+    idMeal,
   } = details;
 
   function saveNewFavorite() {
@@ -82,15 +82,30 @@ function FoodsInProgress() {
     }
   }
 
+  function addDoneRecipeToLocalStorage() {
+    const clickDate = getCurrentDate();
+    const doneRecipeObject = {
+      id: idMeal,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: clickDate,
+      tags: strTags,
+    };
+    SaveDoneRecipe(doneRecipeObject);
+  }
+
   function redirectDone() {
-    console.log('redirect');
+    addDoneRecipeToLocalStorage();
     history.push('/done-recipes');
   }
 
   // https://stackoverflow.com/questions/40143108/disable-button-if-all-checkboxes-are-unchecked
 
   const checks = document.getElementsByName('checkme');
-  // const fnshBtn = document.getElementById('finishButton');
 
   function allTrue(cb) {
     for (let i = 0; i < cb.length; i += 1) {

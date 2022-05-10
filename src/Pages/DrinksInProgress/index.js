@@ -6,6 +6,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
 import { fetchDrinksById } from '../../Services';
+import { getCurrentDate, SaveDoneRecipe } from '../../Functions/InProgressFunctions';
 
 function DrinksInProgress() {
   const { id } = useParams();
@@ -39,6 +40,7 @@ function DrinksInProgress() {
   }, [id, setIsFavorite, setFavoriteRecepies]);
 
   useEffect(() => {
+    // console.log(ingredients);
     async function initialFetchIdDrink() {
       const response = await fetchDrinksById(id);
       setDetails(response.drinks[0]);
@@ -54,6 +56,9 @@ function DrinksInProgress() {
     strAlcoholic,
     strDrink,
     strInstructions,
+    strArea,
+    strTags,
+    idDrink,
   } = details;
 
   function saveNewFavorite() {
@@ -101,6 +106,27 @@ function DrinksInProgress() {
     } else {
       setIsDisabled(true);
     }
+  }
+
+  function addDoneRecipeToLocalStorage() {
+    const clickDate = getCurrentDate();
+    const doneRecipeObject = {
+      id: idDrink,
+      type: 'drink',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: clickDate,
+      tags: strTags,
+    };
+    SaveDoneRecipe(doneRecipeObject);
+  }
+
+  function redirectDone() {
+    addDoneRecipeToLocalStorage();
+    history.push('/done-recipes');
   }
   return (
     <div>
@@ -163,7 +189,7 @@ function DrinksInProgress() {
         name="finishButton"
         disabled={ isDisable }
         id="finishButton"
-        onClick={ () => history.push('/done-recipes') }
+        onClick={ () => redirectDone() }
       />
     </div>
   );

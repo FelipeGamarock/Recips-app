@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer';
 import HeaderForExplore from '../../Components/HeaderForExplore';
 import { fetchRandomFood } from '../../Services';
+import ExploreBtn from '../../Components/ExploreBtn';
+import './index.css';
 
 function ExploreFoods() {
   const [randomFoodId, setRandomFoodId] = useState('');
@@ -21,23 +23,20 @@ function ExploreFoods() {
     <div>
       <HeaderForExplore title="Explore Foods" />
       <div>
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-          onClick={ () => history.push('/explore/foods/ingredients') }
-        >
-          By Ingredient
-        </button>
+        <ExploreBtn
+          title="By Ingredient"
+          testeid="explore-by-ingredient"
+          route="/explore/foods/ingredients"
+        />
+
+        <ExploreBtn
+          title="By Nationality"
+          testeid="explore-by-nationality"
+          route="/explore/foods/nationalities"
+        />
 
         <button
-          type="button"
-          data-testid="explore-by-nationality"
-          onClick={ () => history.push('/explore/foods/nationalities') }
-        >
-          By Nationality
-        </button>
-
-        <button
+          className="surprise-btn"
           type="button"
           data-testid="explore-surprise"
           onClick={ () => history.push(`/foods/${randomFoodId}`) }

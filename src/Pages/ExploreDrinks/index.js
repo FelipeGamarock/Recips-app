@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer';
 import HeaderForExplore from '../../Components/HeaderForExplore';
+import ExploreBtn from '../../Components/ExploreBtn';
 import { fetchRandomDrink } from '../../Services';
+import './index.css';
 
 function ExploreDrinks() {
   const [randomDrinkId, setRandomDrinkId] = useState('');
@@ -21,15 +23,14 @@ function ExploreDrinks() {
     <div>
       <HeaderForExplore title="Explore Drinks" />
       <div>
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-          onClick={ () => history.push('/explore/drinks/ingredients') }
-        >
-          By Ingredient
-        </button>
+        <ExploreBtn
+          title="By Ingredient"
+          testeid="explore-by-ingredient"
+          route="/explore/drinks/ingredients"
+        />
 
         <button
+          className="surprise-btn"
           type="button"
           data-testid="explore-surprise"
           onClick={ () => history.push(`/drinks/${randomDrinkId}`) }

@@ -1,9 +1,15 @@
 import React from 'react';
+import DoneFavoriteFiltersBtns from '../../Components/DoneFavoriteFiltersBtns';
 import HeaderForExplore from '../../Components/HeaderForExplore';
+import UnderConstruction from '../../Components/UnderConstruction';
 
 function FavoriteRecipes() {
   return (
-    <HeaderForExplore title="Favorite Recipes" />
+    <div>
+      <UnderConstruction />
+      <HeaderForExplore title="Favorite Recipes" />
+      <DoneFavoriteFiltersBtns />
+    </div>
   );
 }
 

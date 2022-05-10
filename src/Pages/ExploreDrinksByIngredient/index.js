@@ -31,7 +31,6 @@ function ExploreDrinksByIngredient() {
   return (
     <div>
       <HeaderForExplore title="Explore Ingredients" />
-      <h2>Teste</h2>
       <div>
         { ingredientsDrinkList && ingredientsDrinkList.map((ingredient, index) => (
           <Card
