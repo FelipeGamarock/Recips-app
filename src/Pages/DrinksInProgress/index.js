@@ -6,7 +6,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import DetailsContext from '../../Context/DetailsContext';
 import { fetchDrinksById } from '../../Services';
-import getCurrentDate from '../../Functions/InProgressFunctions/index';
+import { getCurrentDate, SaveDoneRecipe } from '../../Functions/InProgressFunctions';
 
 function DrinksInProgress() {
   const { id } = useParams();
@@ -121,9 +121,7 @@ function DrinksInProgress() {
       doneDate: clickDate,
       tags: strTags,
     };
-    const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    localStorage.setItem('doneRecipes',
-      JSON.stringify([...allDoneRecipes, doneRecipeObject]));
+    SaveDoneRecipe(doneRecipeObject);
   }
 
   function redirectDone() {
